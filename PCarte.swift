@@ -6,25 +6,25 @@ protocol PCarte {
 	// Pre: le nom ne peut être vide
 	init (newNom : String, newCouleur: String) 
 
-	// aPourNom : TCarte -> String 
+	// aPourNom : PCarte -> String 
 	// Donne le nom de la carte
 	var aPourNomC : String {get}
 
-	// aPourCouleurC : TPièce -> String
+	// aPourCouleurC : PPièce -> String
 	// Donne la couleur de la carte 
 	// Post: Le nom de la couleur est "Rouge" ou "Bleu"
 	var aPourCouleurC : String {get}
 
-	// ajoutPosition : TCarte x TPosition -> TCarte
+	// ajoutPosition : PCarte x PPosition -> TCarte
 	// Ajoute une position à la carte comme illustrée sur le sujet
 	// Pre: La position doit se localiser sur le plateau
 	mutating func ajoutPosition (pos : PPosition) 
 
-	// contient : TCarte x TPosition -> Bool 
-	// Post: retourne True si la Carte contient la position passée en paramètre sinon False
-	func contient (pos : PPosition) -> Bool
+	// contient : PCarte x PPosition x PPiece -> Bool 
+	// Post: retourne True si la Carte permet à la pièce passé en paramètre de prendre la position passée en paramètre, sinon False
+	func contient (pos : PPosition, pieceRef : PPiece) -> Bool
 
-	// afficheCarte : TCarte x Int -> String 
+	// afficheCarte : PCarte x Int -> String 
 	// Post : retourne une chaîne de caractères contenant :
 	// le nom de la carte 
 	// une position de référence (ou est placé une pièce fictive qui servira de référence
