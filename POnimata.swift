@@ -23,5 +23,11 @@ protocol POnimata {
 	// Prends en paramètre les deux joueurs et affiche l'état du plateau actuel
 	// Post : retourne une chaîne de caractères affichant le plateau avec les pièces encore en jeu
 	func affichePlateauAvecPiece (joueurBleu : PJoueur, joueurRouge : PJoueur) -> String
+
+
+	// choixPremierJoueur : TOnimata -> PJoueur
+	// Regarde la couleur de la carte en réserve et détermine ainsi le joueur de la même couleur commençant la partie 
+	// Post : retourne le joueur jouant le premier tour
+	func choixPremierJoueur () -> PJoueur
 	
 }
