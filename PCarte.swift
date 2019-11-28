@@ -14,9 +14,15 @@ protocol PCarte {
 	// Donne la couleur de la carte 
 	// Post: Le nom de la couleur est "Rouge" ou "Bleu"
 	var aPourCouleurC : String {get}
+	
+	// aPourPositionReference : PPièce -> PPosition 
+	// Donne la position d'une pièce fictive référence (case noire sur le sujet de Projet)
+	// Cette position doit être sur le plateau 
+	var aPourPositionRef : PPosition {get}
 
 	// ajoutPosition : PCarte x PPosition -> TCarte
 	// Ajoute une position à la carte comme illustrée sur le sujet
+	// la po
 	// Pre: La position doit se localiser sur le plateau
 	mutating func ajoutPosition (pos : PPosition) 
 
@@ -27,12 +33,12 @@ protocol PCarte {
 	// afficheCarte : PCarte x Int -> String 
 	// Post : retourne une chaîne de caractères contenant :
 	// le nom de la carte 
-	// une position de référence (ou est placé une pièce fictive qui servira de référence
+	// une position de référence (où est placé une pièce fictive qui servira de référence)
 	// les positions possibles de cette pièce référence
 	// le sens est un entier qui a pour valeur soit 1 soit -1
 	// si le sens vaut 1 cela concerne le joueur Bleu qui a ses pions en bas du plateau lorsque ce dernier est " affiché "
 	// si le sens vaut -1 cela concerne le joueur Rouge qui a ses pions en haut du plateau lorsque ce dernier est "affiché"
-	// pour se dernier cas il faut donc pensez que les positions possibles sont inversées
+	// pour se dernier cas il faut donc pensez que l'affichage des positions possibles et de la position références sont inversées
 	func afficheCarte (sens : Int) -> String
 }
 
