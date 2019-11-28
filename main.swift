@@ -49,10 +49,10 @@ while partieContinue {
 
 		//  affichage de l'état du jeu
 		print ("pièce disponinble pour", joueurCourant.aPourNomJ)
-		print (tableJeu.affichePlateauAvecPiece(joueurBleu : joueurB, joueurRouge : joueurR))
+		print (tableJeu.decritPlateauAvecPiece(joueurBleu : joueurB, joueurRouge : joueurR))
 		print ("carte disponible pour", joueurCourant.aPourNomJ)
-		print (joueurCourant.aPourCarte1.afficheCarte(sens : cpt))
-		print (joueurCourant.aPourCarte2.afficheCarte(sens : cpt))
+		print (joueurCourant.aPourCarte1.decritCarte(sens : cpt))
+		print (joueurCourant.aPourCarte2.decritCarte(sens : cpt))
 
 		// choix de le pièce
 		print ("choisir une pièce")
