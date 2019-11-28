@@ -24,10 +24,10 @@ protocol PPiece {
 	// Pre: La nouvelle position doit être sur le plateau
 	mutating func changePosition (newPosition : PPosition)
 
-	// estUnDeplacementPossible : TPosition x TCarte x TPièce -> Bool
+	// estUnDeplacementPossible : TPosition x TCarte x TPièce x Int -> Bool
 	// Post: True si correspond à l'un des déplacements proposés par la carte
 	// Post: False si la position n'est pas sur le plateau
 	// Post: False si la position est déjà occupée par une de ses pièces
-	func estUnDeplacementPossible (newPosition : PPosition, carte : PCarte) -> Bool
+	func estUnDeplacementPossible (newPosition : PPosition, carte : PCarte, sens : Int) -> Bool
 
 }
