@@ -55,6 +55,7 @@ while partieContinue {
 			choixPiece = choixSaisie
 		}
 		var pieceCourante : PPiece = joueurCourant.recupPiece(pieceSaisie : choixPiece)
+
 		// choix de la carte 
 		print ("choisir une Carte par son nom")
 		let choixCarte = readLine() 
@@ -65,6 +66,8 @@ while partieContinue {
 
 		// choix de la nouvelle position + vérification de la saisie d'un entier
 		print ("choisir la nouvelle position de la pièce séléctionnée")
+
+		// saisie de X
 		var xValide : Bool = true
 		var newPositionX : Int 
 		repeat {
@@ -78,6 +81,7 @@ while partieContinue {
 			}
 		} while !xValide
 
+		// saisie de Y
 		var yValide : Bool = true
 		var newPositionY : Int
 		repeat {
@@ -102,6 +106,7 @@ while partieContinue {
 			if let choixSaisie = readLine() {
 				choix = choixSaisie
 			}
+
 			// Choix d'une nouvelle pièce
 			if choix == "non" || choix == "non "{
 				print("séléctionnez une nouvelle pièce")
@@ -130,10 +135,31 @@ while partieContinue {
 
 			// Choix d'une nouvelle position
 			print ("choisir une nouvelle position de la pièce séléctionnée")
+
 			print ("x :")
-			let newPositionX = readLine()
+			repeat {
+				print ("x :")
+				var XSaisie = readLine()
+				if let X = XSaisie {
+					newPositionX = Int(X) ?? 0
+				} else {
+					print ("erreur pour x")
+					xValide = false
+				}
+			} while !xValide
+
+
 			print ("y :")
-			let newPositionY = readLine()
+			repeat {
+				print ("y :")
+				var YSaisie = readLine()
+				if let Y = YSaisie {
+					newPositionY = Int(Y) ?? 0		
+				} else {
+					print ("erreur pour y")
+					yValide = false 
+				}
+			} while !yValide
 
 		// je sors de ma boucle lorsque la nouvelle position de ma pièce est valide
 
@@ -141,19 +167,30 @@ while partieContinue {
 
 		var newPosition = PPosition (newX : newPositionX, newY : newPositionY)
 
+		// On commence par vérifier si il y a une pièce adverse sur la case où nous avons déplacé notre pièce 
 		if let piecePresente = newPosition.estOccupéPar() {
 			// piecePresente est obligatoirement une pièce du joueur adverse car mon déplacement n'est pas valide si je vais sur une position occupée par une de mes pièces
 			if piecePresente.estMaitre {
+				// la partie s'arrête 
 				partieContinue = false
 			}
 			joueurCourant.elimine(piece : pieceCourante)
 		}
+
+		// On vérifie si la nouvelle position de notre pièce est une arche adverse 
 		if newPosition.estUneArcheAdverse(joueur : joueurCourant) {
+			// Si nous sommes sur une arche adverse nous avons gagné, la partie est fini
 			partieContinue = false
 		}
+
+		// on change la position de notre pièce 
 		pieceCourante.changerPosition(newPosition)
+
 		carteAEchanger = carteCourante
+
 	} else {
+
+		// je suis dans le cas où aucun déplacement est possible
 		print ("Choisir une carte à défausser")
 		let choixCarte = readLine() 
 		var carteCourante : PCarte = joueurCourant.aPourCarte1
@@ -161,14 +198,19 @@ while partieContinue {
 			carteCourante = joueurCourant.aPourCarte2
 		} 
 		carteAEchanger = carteCourante
+
 	}
+
 		tableJeu.echangeCarte (newRes : carteAEchanger, newMain : tableJeu.aEnReserve, joueur : joueurCourant)
+
 		joueurCourant.autreJoueur()
+
 		if cpt == 1 {
 			cpt = -1
 		} else {
 			cpt = 1
 		}
+		
 }
 
 joueurCourant.autreJoueur()
