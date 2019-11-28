@@ -6,19 +6,19 @@ protocol PPosition {
 	// Pre: y compris entre 0 et 4 	
 	init (newX : Int, newY : Int) 
 
-	// positionX : TPosition -> Int
+	// positionX : PPosition -> Int
 	// Renvoie la coordonnée x de la position
 	var positionX : Int {get set}
 
-	// positionY : TPosition -> Int
+	// positionY : PPosition -> Int
 	// Renvoie la coordonnée y de la position
 	var positionY : Int {get set}
 	
-	// estOccupePar : TPosition -> TPiece | Vide 
+	// estOccupePar : PPosition -> PPiece | Vide 
 	// Si une pièce occupe la position, on retourne la pièce sinon retourne Vide 
 	var estOccupePar : PPiece? {get set}
 
-	// estUneArcheDuJoueur : TPosition x TJoueur -> Bool
+	// estUneArcheDuJoueur : PPosition x PJoueur -> Bool
 	// Post: retourne True si la position correspond à l'arche du joueur sinon False
 	func estUneArcheDuJoueur (joueur : PJoueur) -> Bool
 }
