@@ -6,7 +6,7 @@ protocol POnimata {
 
 	// aEnReserve : TOnimata -> TCarte 
 	// Donne la carte qui est en réserve
-	var aEnReserve : TCarte {get,set}
+	var aEnReserve : PCarte {get,set}
 
 	// distributionCarte : TOnimata x TJoueur x TJoueur -> TOnimata
 	// Création des 15 cartes de jeu et affectation de manière aléatoire de la carte réserve et des cartes dans les mains de chaque joueur

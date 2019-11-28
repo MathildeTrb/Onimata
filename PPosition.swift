@@ -16,7 +16,7 @@ protocol PPosition {
 	
 	// estOccupePar : TPosition -> TPiece | Vide 
 	// Si une pièce occupe la position, on retourne la pièce sinon retourne Vide 
-	var estOccupePar : TPiece? {get, set}
+	var estOccupePar : PPiece? {get, set}
 
 	// estUneArcheAdverse : TPosition x TJoueur -> Bool
 	// Post: retourne True si la position correspond à une arche adverse sinon False
