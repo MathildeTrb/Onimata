@@ -1,98 +1,122 @@
 // Initialise la partie avec le plateau et les pièces à leur position initiale (pièce bleu en bas dans l'affichage du plateau, par conséquent pièce rouge en haut)
-var tableJeu : TOnimata = TOnimata() 
+var tableJeu : POnimata 
+tableJeu = POnimata() 
 // Indique qu'aucun des deux joueur n'a pour le moment gagné, sera utilisé dans la boucle 
-var partieContinue : Bool = True 
+var partieContinue : Bool = true 
 
 // initialisation du joueur bleu 
 print ("entrez le nom du joueur Bleu")
-let nomJoueurBleu : String = readLine ()
-var joueurB : TJoueur = TJoueur(newNom : nomJoueurBleu, newCouleur : "Bleu")  
+var joueurB : PJoueur
+if let nomJoueurBleu = readLine () {
+	joueurB = PJoueur(newNom : nomJoueurBleu, newCouleur : "Bleu", plateau : tableJeu) 
+} 
 
 // initialisation du joueur rouge 
 print ("entrez le nom du joueur Rouge")
-let nomJoueurRouge : String = readLine ()
-var joueurR : TJoueur = TJoueur(newNom : nomJoueurRouge, newCouleur : "Rouge")  
+var joueurR : PJoueur
+if let nomJoueurRouge = readLine () {
+	joueurR = PJoueur(newNom : nomJoueurRouge, newCouleur : "Rouge", plateau : tableJeu) 
+}  
 
 // Distribue les 5 cartes parmis les 15 de manière aléatoire 
-var tableJeu.distributionCarte(jBleu : joueurB, jRouge : joueurR)  
-
+tableJeu.distributionCarte (jBleu : joueurB, jRouge : joueurR)  
+ 
 // définit la couleur du premier joueur en fonction de la couleur de la carte en réserve
-var joueurCourant : TJoueur = tableJeu.choixPremierJoueur()
+var joueurCourant : PJoueur = tableJeu.choixPremierJoueur()
 // compteur du nombre de tour, aide pour gérer les déplacements des pièces
 var cpt : Int = 1 
 if joueurCourant.aPourCouleurJ == "Rouge" {
 	cpt = -1
 }
 
+
 while partieContinue {
 
 	if joueurCourant.peutJouer() {
 
 		//  affichage de l'état du jeu
-		print ("pièce disponinble pour", JoueurCourant.aPourNomJ)
-		tableJeu.affichePlateauAvecPiece(joueurBleu : joueurB, joueurRouge : joueurR)
-		print ("carte disponible pour", JoueurCourant.aPourNomJ)
-		print (JoueurCourant.aPourCarte1.afficheCarte(sens : cpt))
-		print (JoueurCourant.aPourCarte2.afficheCarte(sens : cpt))
+		print ("pièce disponinble pour", joueurCourant.aPourNomJ)
+		print (tableJeu.affichePlateauAvecPiece(joueurBleu : joueurB, joueurRouge : joueurR))
+		print ("carte disponible pour", joueurCourant.aPourNomJ)
+		print (joueurCourant.aPourCarte1.afficheCarte(sens : cpt))
+		print (joueurCourant.aPourCarte2.afficheCarte(sens : cpt))
 
 		// choix de le pièce
 		print ("choisir une pièce")
-		let choixPiece = readLine()
-		var pieceCourante : TPiece = joueurCourant.recupPiece(pieceSaisie : choixPiece)
+		var choixPiece : String
+		if let choixSaisie = readLine(){
+			choixPiece = choixSaisie
+		}
+		var pieceCourante : PPiece = joueurCourant.recupPiece(pieceSaisie : choixPiece)
 		// choix de la carte 
 		print ("choisir une Carte par son nom")
 		let choixCarte = readLine() 
-		var carteCourant : TCarte = joueurCourant.aPourCarte1.aPourNomC
+		var carteCourante : PCarte = joueurCourant.aPourCarte1
 		if choixCarte == joueurCourant.aPourCarte2.aPourNomC {
-			carteCourante = joueurCourant.aPourCarte2.aPourNomC
+			carteCourante = joueurCourant.aPourCarte2
 		} 
 
 		// choix de la nouvelle position + vérification de la saisie d'un entier
 		print ("choisir la nouvelle position de la pièce séléctionnée")
+		var xValide : Bool = true
+		var newPositionX : Int 
 		repeat {
-			var xValide : Bool = true
 			print ("x :")
-			var X = readLine()
-			guard let newPositionX = Int(X) {
+			var XSaisie = readLine()
+			if let X = XSaisie {
+				newPositionX = Int(X) ?? 0
+			} else {
 				print ("erreur pour x")
 				xValide = false
 			}
-			while !xValide
-		}
+		} while !xValide
+
+		var yValide : Bool = true
+		var newPositionY : Int
 		repeat {
-			var yValide : Bool = true
 			print ("y :")
-			var Y = readLine()
-			guard let newPositionY = Int(X) {
+			var YSaisie = readLine()
+			if let Y = YSaisie {
+				newPositionY = Int(Y) ?? 0		
+			} else {
 				print ("erreur pour y")
-				yValide = false
+				yValide = false 
 			}
-			while !yValide
-		}
+		} while !yValide
+		
 
 		// vérification que la nouvelle position demandée est possible 
 		// Si ce n'est pas le cas je demande si le joueur veut changer de pièce ou changer de carte 
 		// Je finis par demander une nouvelle position pour la pièce choisie 
-		while !pieceCourante.estUnDeplacementPossible(newPosition : TPosition (newX : newPositionX, newY : newPisitionY), carte : carteCourante, sens : cpt) {
+		while !pieceCourante.estUnDeplacementPossible(newPosition : PPosition (newX : newPositionX, newY : newPositionY), carte : carteCourante, sens : cpt) {
 
 			print ("déplacement impossible. Voulez-vous garder la pièce séléctionnée : oui ou non")
-			let choix = readLine()
-
+			var choix : String			
+			if let choixSaisie = readLine() {
+				choix = choixSaisie
+			}
 			// Choix d'une nouvelle pièce
 			if choix == "non" || choix == "non "{
 				print("séléctionnez une nouvelle pièce")
-				let choixPiece = readLine()
+				var choixPiece : String
+				if let choixSaisie = readLine(){
+					choixPiece = choixSaisie
+				}
+				pieceCourante = joueurCourant.recupPiece(pieceSaisie : choixPiece)
 			}
 
 			print ("Voulez-vous garder la carte séléctionnée : oui ou non")
-			let choix = readLine()
+			var choixBis : String
+			if let choixSaisie = readLine() {
+				choixBis = choixSaisie
+			}
 
 			// Choix d'une nouvelle carte
-			if choix == "non" || choix == "non "{
+			if choixBis == "non" || choixBis == "non "{
 				print("séléctionnez le nom d'une nouvelle carte")
-				let choixPiece = readLine()
-				var carteCourant : TCarte = joueurCourant.aPourCarte1
-				if choixCarte == joueurCourant.aPourCarte2 {
+				let choixCarte = readLine()
+				var carteCourant : PCarte = joueurCourant.aPourCarte1
+				if choixCarte == joueurCourant.aPourCarte2.aPourNomC {
 				carteCourant = joueurCourant.aPourCarte2
 				} 
 			}
@@ -108,11 +132,11 @@ while partieContinue {
 
 		}
 
-		var newPosition : TPosition (newX : newPositionX, newY : newPositionY)
+		var newPosition = PPosition (newX : newPositionX, newY : newPositionY)
 
 		if let piecePresente = newPosition.estOccupéPar() {
 			// piecePresente est obligatoirement une pièce du joueur adverse car mon déplacement n'est pas valide si je vais sur une position occupée par une de mes pièces
-			if piecePresent.estMaitre {
+			if piecePresente.estMaitre {
 				partieContinue = false
 			}
 			joueurCourant.elimine(piece : pieceCourante)
@@ -124,19 +148,20 @@ while partieContinue {
 		} else {
 			print ("Choisir une carte à défausser")
 			let choixCarte = readLine() 
-			var carteCourant : TCarte = joueurCourant.aPourCarte1.aPourNomC
+			var carteCourante : PCarte = joueurCourant.aPourCarte1
 			if choixCarte == joueurCourant.aPourCarte2.aPourNomC {
-				carteCourante = joueurCourant.aPourCarte2.aPourNomC
+				carteCourante = joueurCourant.aPourCarte2
 		} 
 	}
 		tableJeu.echangeCarte (newRes : carteCourante, newMain : tableJeu.aEnReserve, joueur : joueurCourant)
-		joueurCourant = joueurCourant.autreJoueur()
+		joueurCourant.autreJoueur()
 		if cpt == 1 {
 			cpt = -1
 		} else {
-			cpt =1
+			cpt = 1
 		}
 }
 
-print ("The winner is ", joueurCourant.autreJoueur.aPourNomJ)
+joueurCourant.autreJoueur()
+print ("The winner is ", joueurCourant.aPourNomJ)
 print ("Bravooooooo")
