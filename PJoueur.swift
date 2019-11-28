@@ -1,7 +1,7 @@
 protocol PJoueur {
 
 
-	// init : String x String x TOnimata
+	// init : String x String x TOnimata -> PJoueur
 	// Créer un joueur dont le nom est newNom, dont la couleur est newCouleur et qui a en sa possession un maitre et 4 pion de sa couleur (qui peuvent être récupérés directement sur le plateau entré en paramètre)
 	// Pre: La couleur du joueur est soit "Rouge" soit "Bleu"
 	// Pre: le nom du joueur ne peut être vide
@@ -18,6 +18,9 @@ protocol PJoueur {
 	// Resultat : un string correspondant à la couleur du joueur 
 	var aPourCouleurJ : String {get}
 	
+	// aPourPieces : TJoueur -> [PPiece]
+	// Donne sous forme de tableau tous les pions encore présent sur le plateau d'un joueur
+	// Pre: La couleur de toutes les pièces et la même que celle du joueur
 	var aPourPieces : [PPiece] {get set}
 
 	// aPourCarte1 : TJoueur -> TCarte 
