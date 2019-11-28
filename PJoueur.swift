@@ -17,6 +17,8 @@ protocol PJoueur {
 	// donne la couleur du joueur (la couleur sera "Rouge" ou "Bleu")
 	// Resultat : un string correspondant à la couleur du joueur 
 	var aPourCouleurJ : String {get}
+	
+	var aPourPieces : [PPiece] {get set}
 
 	// aPourCarte1 : TJoueur -> TCarte 
 	// donne la carte 1 du joueur 
