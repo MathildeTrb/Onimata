@@ -22,14 +22,14 @@ protocol POnimata {
 	// Pre: le troisième paramètre correspond au joueurCourant
 	mutating func echangeCarte (newRes : PCarte, newMain : PCarte, joueur : PJoueur)
 
-	// affichePlateauAvecPiece : POnimata x PJoueur x PJoueur -> String 
+	// decritPlateauAvecPiece : POnimata x PJoueur x PJoueur -> String 
 	// Prends en paramètre les deux joueurs et affiche l'état du plateau actuel
 	// Post : retourne une chaîne de caractères affichant le plateau avec les pièces encore en jeu
 	// Le String doit permettre d'afficher :
 	// initialement le nom des pions bleus en bas et le nom des pions rouge en haut 
 	// un caractère qui ne représente rien dans les case vides (du style - ou _ ) 
 	// au cours de la partie le nom des pièces à leur position en imaginant le joueur bleu en bas 
-	func decrisPlateauAvecPiece (joueurBleu : PJoueur, joueurRouge : PJoueur) -> String
+	func decritPlateauAvecPiece (joueurBleu : PJoueur, joueurRouge : PJoueur) -> String
 
 	// choixPremierJoueur : POnimata -> PJoueur
 	// Regarde la couleur de la carte en réserve et détermine ainsi le joueur de la même couleur commençant la partie 
