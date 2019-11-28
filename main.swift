@@ -23,14 +23,21 @@ tableJeu.distributionCarte (jBleu : joueurB, jRouge : joueurR)
  
 // définit la couleur du premier joueur en fonction de la couleur de la carte en réserve
 var joueurCourant : PJoueur = tableJeu.choixPremierJoueur()
-// compteur du nombre de tour, aide pour gérer les déplacements des pièces
+
+// compteur du nombre de tour, aide pour gérer l'affichage des carte (paramètre sens pour la fonction affichageCarte et estUnDeplacementPossible) 
+// sa valeur change à chaque changement de joueur 
+// si -1 besoin d'afficher les déplacements possibles de la carte dans l'autre sens 
 var cpt : Int = 1 
 if joueurCourant.aPourCouleurJ == "Rouge" {
 	cpt = -1
 }
 
-
+// partieContinue est vrai tant que personne n'est sur une arche adverse ou a éliminé le maître adverse
 while partieContinue {
+
+	// carteAEchanger à la fin du tour, 
+	// On affectera une valeure à carteAEchanger après le déplacement du pion si déplacement possible, sinon après le choix de la carte à défausser
+	var carteAEchanger : PCarte
 
 	if joueurCourant.peutJouer() {
 
@@ -145,15 +152,17 @@ while partieContinue {
 			partieContinue = false
 		}
 		pieceCourante.changerPosition(newPosition)
-		} else {
-			print ("Choisir une carte à défausser")
-			let choixCarte = readLine() 
-			var carteCourante : PCarte = joueurCourant.aPourCarte1
-			if choixCarte == joueurCourant.aPourCarte2.aPourNomC {
-				carteCourante = joueurCourant.aPourCarte2
+		carteAEchanger = carteCourante
+	} else {
+		print ("Choisir une carte à défausser")
+		let choixCarte = readLine() 
+		var carteCourante : PCarte = joueurCourant.aPourCarte1
+		if choixCarte == joueurCourant.aPourCarte2.aPourNomC {
+			carteCourante = joueurCourant.aPourCarte2
 		} 
+		carteAEchanger = carteCourante
 	}
-		tableJeu.echangeCarte (newRes : carteCourante, newMain : tableJeu.aEnReserve, joueur : joueurCourant)
+		tableJeu.echangeCarte (newRes : carteAEchanger, newMain : tableJeu.aEnReserve, joueur : joueurCourant)
 		joueurCourant.autreJoueur()
 		if cpt == 1 {
 			cpt = -1
