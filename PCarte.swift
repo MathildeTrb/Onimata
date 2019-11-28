@@ -30,7 +30,7 @@ protocol PCarte {
 	// Post: retourne True si la Carte permet à la pièce passé en paramètre de prendre la position passée en paramètre, sinon False
 	func contient (pos : PPosition, pieceRef : PPiece) -> Bool
 
-	// afficheCarte : PCarte x Int -> String 
+	// decritCarte : PCarte x Int -> String 
 	// Post : retourne une chaîne de caractères contenant :
 	// le nom de la carte 
 	// une position de référence (où est placé une pièce fictive qui servira de référence)
@@ -39,7 +39,7 @@ protocol PCarte {
 	// si le sens vaut 1 cela concerne le joueur Bleu qui a ses pions en bas du plateau lorsque ce dernier est " affiché "
 	// si le sens vaut -1 cela concerne le joueur Rouge qui a ses pions en haut du plateau lorsque ce dernier est "affiché"
 	// pour se dernier cas il faut donc pensez que l'affichage des positions possibles et de la position références sont inversées
-	func afficheCarte (sens : Int) -> String
+	func decritCarte (sens : Int) -> String
 }
 
 	
