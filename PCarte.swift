@@ -18,15 +18,15 @@ protocol PCarte {
 	// ajoutPosition : TCarte x TPosition -> TCarte
 	// Ajoute une position à la carte comme illustrée sur le sujet
 	// Pre: La position doit se localiser sur le plateau
-	func ajoutPosition (PPosition) 
+	func ajoutPosition (pos : PPosition) 
 
 	// contient : TCarte x TPosition -> Bool 
 	// Post: retourne True si la Carte contient la position passée en paramètre sinon False
-	func contient (PPosition) -> Bool
+	func contient (pos : PPosition) -> Bool
 
 	// afficheCarte : TCarte x Int -> String 
 	// Post : retourne une chaîne de caractères contenant le nom de la carte et une grille explicitant les déplacements possibles comme sur le sujet
 	func afficheCarte (sens : Int) -> String
-
+}
 
 	
