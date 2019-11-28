@@ -27,6 +27,7 @@ protocol PPiece {
 	// changerPosition : PPièce x PPosition -> TPièce
 	// Change aPourPosition avec la nouvelle position
 	// Pre: La nouvelle position doit être sur le plateau
+	// modifie aussi estOccupePar de newPosition
 	mutating func changePosition (newPosition : PPosition)
 
 	// estUnDeplacementPossible : PPosition x PCarte x PPièce x Int -> Bool
