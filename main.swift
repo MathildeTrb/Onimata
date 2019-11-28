@@ -23,6 +23,12 @@ tableJeu.distributionCarte (jBleu : joueurB, jRouge : joueurR)
  
 // définit la couleur du premier joueur en fonction de la couleur de la carte en réserve
 var joueurCourant : PJoueur = tableJeu.choixPremierJoueur()
+var joueurAdverse : PJoueur
+if joueurCourant == joueurB {
+	joueurAdverse = joueurR
+} else {
+	joueurAdverse = joueurB 
+}
 
 // compteur du nombre de tour, aide pour gérer l'affichage des carte (paramètre sens pour la fonction affichageCarte et estUnDeplacementPossible) 
 // sa valeur change à chaque changement de joueur 
@@ -174,11 +180,11 @@ while partieContinue {
 				// la partie s'arrête 
 				partieContinue = false
 			}
-			joueurCourant.elimine(piece : pieceCourante)
+			joueurAdverse.elimine(piece : piecePresente)
 		}
 
 		// On vérifie si la nouvelle position de notre pièce est une arche adverse 
-		if newPosition.estUneArcheAdverse(joueur : joueurCourant) {
+		if newPosition.estUneArcheDuJoueur(joueur : joueurAdverse) {
 			// Si nous sommes sur une arche adverse nous avons gagné, la partie est fini
 			partieContinue = false
 		}
@@ -201,18 +207,18 @@ while partieContinue {
 
 	}
 
-		tableJeu.echangeCarte (newRes : carteAEchanger, newMain : tableJeu.aEnReserve, joueur : joueurCourant)
+	tableJeu.echangeCarte (newRes : carteAEchanger, newMain : tableJeu.aEnReserve, joueur : joueurCourant)
 
-		joueurCourant.autreJoueur()
+	joueurCourant.autreJoueur()
+	joueurAdverse.autreJoueur()
 
-		if cpt == 1 {
-			cpt = -1
-		} else {
-			cpt = 1
-		}
+	if cpt == 1 {
+		cpt = -1
+	} else {
+		cpt = 1
+	}
 		
 }
 
-joueurCourant.autreJoueur()
-print ("The winner is ", joueurCourant.aPourNomJ)
+print ("The winner is ", joueurAdverse.aPourNomJ)
 print ("Bravooooooo")
