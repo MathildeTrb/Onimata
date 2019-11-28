@@ -6,7 +6,7 @@ protocol PJoueur {
 	// Pre: La couleur du joueur est soit "Rouge" soit "Bleu"
 	// Pre: le nom du joueur ne peut être vide
 	// Resultat : un joueur avec un nom, une couleur et des pièces associées
-	init (newNom : String, newCouleur : String, plateau : TOnimata)
+	init (newNom : String, newCouleur : String, plateau : POnimata)
 
 	// aPourNom : TJoueur -> String
 	// donne le nom du joueur 
@@ -37,7 +37,7 @@ protocol PJoueur {
 	// elimine : Tpiece x TJoueur -> TJoueur 
 	// Est utilisée lorsqu'une pièce est éliminé de la partie
 	// Resultat : enlève au joueur la pièce entrée en paramètre
-	mutating func elimine (piece : TPiece)
+	mutating func elimine (piece : PPiece)
 
 	// autreJoueur : TJoueur -> TJoueur
 	// Resultat : Renvoie le joueur qui n'est pas le joueur courant

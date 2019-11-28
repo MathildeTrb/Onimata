@@ -20,5 +20,5 @@ protocol PPosition {
 
 	// estUneArcheAdverse : TPosition x TJoueur -> Bool
 	// Post: retourne True si la position correspond à une arche adverse sinon False
-	func estUneArcheAdverse (joueur : TJoueur) -> Bool
+	func estUneArcheAdverse (joueur : PJoueur) -> Bool
 }
