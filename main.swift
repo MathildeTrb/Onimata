@@ -174,7 +174,7 @@ while partieContinue {
 		var newPosition = PPosition (newX : newPositionX, newY : newPositionY)
 
 		// On commence par vérifier si il y a une pièce adverse sur la case où nous avons déplacé notre pièce 
-		if let piecePresente = newPosition.estOccupéPar() {
+		if let piecePresente = newPosition.estOccupePar() {
 			// piecePresente est obligatoirement une pièce du joueur adverse car mon déplacement n'est pas valide si je vais sur une position occupée par une de mes pièces
 			if piecePresente.estMaitre {
 				// la partie s'arrête 
