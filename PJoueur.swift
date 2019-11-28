@@ -21,12 +21,12 @@ protocol PJoueur {
 	// aPourCarte1 : TJoueur -> TCarte 
 	// donne la carte 1 du joueur 
 	// Resultat : une TCarte qui correspond à la carte1 du joueur 
-	var aPourCarte1 : PCarte! {get, set}
+	var aPourCarte1 : PCarte! {get set}
 
 	// aPourCarte2 : TJoueur -> TCarte 
 	// donne la carte 2 du joueur 
 	// Resultat : une TCarte qui correspond à la carte2 du joueur
-	var aPourCarte2 : PCarte! {get, set}
+	var aPourCarte2 : PCarte! {get set}
 
 	// recupPiece : String -> TPiece
 	// Resultat : cette fonction renvoie la pièce correspondant au String ssi elle appartient au joueurCourant (ce qui implique qu'elle n'a pas été éliminée)

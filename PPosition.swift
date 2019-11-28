@@ -8,15 +8,15 @@ protocol PPosition {
 
 	// positionX : TPosition -> Int
 	// Renvoie la coordonnée x de la position
-	var positionX : Int {get, set}
+	var positionX : Int {get set}
 
 	// positionY : TPosition -> Int
 	// Renvoie la coordonnée y de la position
-	var positionY : Int {get, set}
+	var positionY : Int {get set}
 	
 	// estOccupePar : TPosition -> TPiece | Vide 
 	// Si une pièce occupe la position, on retourne la pièce sinon retourne Vide 
-	var estOccupePar : PPiece? {get, set}
+	var estOccupePar : PPiece? {get set}
 
 	// estUneArcheAdverse : TPosition x TJoueur -> Bool
 	// Post: retourne True si la position correspond à une arche adverse sinon False

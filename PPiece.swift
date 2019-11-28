@@ -17,7 +17,7 @@ protocol PPiece {
 
 	// aPourPosition : TPièce -> TPosition
 	// Renvoie la position de la pièce 
-	var aPourPosition : PPosition {get,set}
+	var aPourPosition : PPosition {get set}
 
 	// changerPosition : TPièce x TPosition -> TPièce
 	// Change aPourPosition avec la nouvelle position
