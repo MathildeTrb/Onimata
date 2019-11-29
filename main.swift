@@ -1,11 +1,11 @@
 // Initialise la partie avec le plateau et les pièces à leur position initiale (pièce bleu en bas dans l'affichage du plateau, par conséquent pièce rouge en haut)
 var tableJeu : POnimata 
 tableJeu = POnimata() 
-// Indique qu'aucun des deux joueur n'a pour le moment gagné, sera utilisé dans la boucle 
+// Indique qu'aucun des deux joueurs n'a pour le moment gagné, sera utilisé dans la boucle 
 var partieContinue : Bool = true 
 
 // initialisation du joueur bleu 
-print ("entrez le nom du joueur Bleu")
+print ("Entrez le nom du joueur Bleu")
 var joueurB : PJoueur
 if let nomJoueurBleu = readLine () {
 	joueurB = PJoueur(newNom : nomJoueurBleu, newCouleur : "Bleu", plateau : tableJeu) 
@@ -48,13 +48,13 @@ while partieContinue {
 	if joueurCourant.peutJouer() {
 
 		//  affichage de l'état du jeu
-		print ("pièce disponinble pour", joueurCourant.aPourNomJ)
+		print ("pièce disponible pour", joueurCourant.aPourNomJ)
 		print (tableJeu.decritPlateauAvecPiece(joueurBleu : joueurB, joueurRouge : joueurR))
 		print ("carte disponible pour", joueurCourant.aPourNomJ)
 		print (joueurCourant.aPourCarte1.decritCarte(sens : cpt))
 		print (joueurCourant.aPourCarte2.decritCarte(sens : cpt))
 
-		// choix de le pièce
+		// choix de la pièce
 		print ("choisir une pièce")
 		var choixPiece : String
 		if let choixSaisie = readLine(){
@@ -115,7 +115,7 @@ while partieContinue {
 
 			// Choix d'une nouvelle pièce
 			if choix == "non" || choix == "non "{
-				print("séléctionnez une nouvelle pièce")
+				print("sélectionnez une nouvelle pièce")
 				var choixPiece : String
 				if let choixSaisie = readLine(){
 					choixPiece = choixSaisie
@@ -123,7 +123,7 @@ while partieContinue {
 				pieceCourante = joueurCourant.recupPiece(pieceSaisie : choixPiece)
 			}
 
-			print ("Voulez-vous garder la carte séléctionnée : oui ou non")
+			print ("Voulez-vous garder la carte sélectionnée : oui ou non")
 			var choixBis : String
 			if let choixSaisie = readLine() {
 				choixBis = choixSaisie
@@ -140,7 +140,7 @@ while partieContinue {
 			}
 
 			// Choix d'une nouvelle position
-			print ("choisir une nouvelle position de la pièce séléctionnée")
+			print ("choisir une nouvelle position de la pièce sélectionnée")
 
 			print ("x :")
 			repeat {
@@ -173,7 +173,7 @@ while partieContinue {
 
 		var newPosition = PPosition (newX : newPositionX, newY : newPositionY)
 
-		// On commence par vérifier si il y a une pièce adverse sur la case où nous avons déplacé notre pièce 
+		// On commence par vérifier s'il y a une pièce adverse sur la case où nous avons déplacé notre pièce 
 		if let piecePresente = newPosition.estOccupePar() {
 			// piecePresente est obligatoirement une pièce du joueur adverse car mon déplacement n'est pas valide si je vais sur une position occupée par une de mes pièces
 			if piecePresente.estMaitre {
