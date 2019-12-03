@@ -4,7 +4,7 @@ protocol PPiece {
 	// Création d’une pièce avec un nom, une couleur, une position et si c'est un maître ou non
 	// Pre: Le nom de la couleur est soit "Rouge" soit "Bleu"
 	// Pre: la position doit se situer sur le plateau
-	// newPosition.estOccupePar = la pièce créée piece 
+	// newPosition.estOccupePar = la pièce créé
 	init (newNom : String, newCouleur : ECouleur, newEstMaitre : Bool, newPosition : PPosition)
 	
 	// aPourNom : PPièce -> String
