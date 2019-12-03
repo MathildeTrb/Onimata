@@ -1,3 +1,18 @@
+func afficheTableJeu (partie : POnimata) {
+	for y in stride(from: 4, to: -1, by: -1) {
+		var chaine : String = ""
+		for x in 0...4 {
+			var positionTestee : PPosition = PPosition (newX : x, newY : y)
+			if let piece = positionTestee.estOccupe {
+				print (piece.aPourNom) 
+			} else {
+				print (" _ ")
+			}
+		}
+	}
+}
+
+
 // Initialise la partie avec le plateau et les pièces à leur position initiale (pièce bleu en bas dans l'affichage du plateau, par conséquent pièce rouge en haut)
 var tableJeu : POnimata 
 tableJeu = POnimata() 
