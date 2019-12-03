@@ -1,3 +1,3 @@
-enum Couleur {
+enum ECouleur {
         case Rouge, Bleu
 }
