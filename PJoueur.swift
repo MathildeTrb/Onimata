@@ -34,11 +34,11 @@ protocol PJoueur {
 	// Resultat : une PCarte qui correspond à la carte2 du joueur
 	var aPourCarte2 : PCarte! {get set}
 
-	// recupPiece : String -> PPiece
+	// recupPiece : EPiece -> PPiece
 	// Resultat : cette fonction renvoie la pièce correspondant au String ssi elle appartient au joueurCourant (ce qui implique qu'elle n'a pas été éliminée)
 	// Pre : le String entré en paramètre doit correspondre au nom d'une pièce que le joueur détient
 	// Post : une Pièce correspondant à la chaîne de caractère est retournée
-	func recupPiece (pieceSaisie : String) -> PPiece
+	func recupPiece (pieceSaisie : EPiece) -> PPiece
 
 	// elimine : PPiece x PJoueur -> TJoueur 
 	// Est utilisée lorsqu'une pièce est éliminé de la partie
