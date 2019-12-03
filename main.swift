@@ -4,10 +4,45 @@ func afficheTableJeu (partie : POnimata) {
 		for x in 0...4 {
 			var positionTestee : PPosition = PPosition (newX : x, newY : y)
 			if let piece = positionTestee.estOccupe {
-				print (piece.aPourNom) 
+				chaine += Sring(piece.aPourNom) 
 			} else {
-				print (" _ ")
+				chaine += " _ "
 			}
+		}
+		print (chaine)
+	}
+}
+
+func afficheCarte (carte : PCarte, sens : Int) {
+	print ("carte : ", carte.aPourNomC)
+	if sens == 1 {
+		print ("Position référence : x = ", carte.aPourPositionRef.positionX, " y = ", carte.aPourPositionRef.positionY)
+		for pPossible in carte.aPourPositionPossible {
+			print ("Position Possible : x = ", pPossible.positionX, " y = ", pPossible.positionY)
+		}
+	} else {
+		
+		// gère la position de référence
+		var chaine : String = "Position référence : x = "
+		var xRef : Int = carte.aPourPositionRef.positionX
+		xRef = abs ( xRef - 4 )
+		chaine += String(xRef)
+		chaine += " y = "
+		var yRef : Int = carte.aPourPositionRef.positionY
+		yRef = abs ( yRef - 4 )
+		chaine += String(yRef)
+		print (chaine)
+		
+		// gère les positions possibles
+		chaine = ""
+		for pPossible in carte.aPourPositionPossible {
+			chaine = "Position Possible : x = "
+			var xPos : Int = abs ( pPossible.positionX - 4 )
+			chaine += String(xPos)
+			chaine += " y = "
+			var yPos : Int = abs ( pPossible.positionY - 4 )
+			chaine += String(yPos)
+			print(chaine)
 		}
 	}
 }
