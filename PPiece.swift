@@ -21,7 +21,7 @@ protocol PPiece {
 	var estMaitre : Bool {get}
 
 	// aPourPosition : PPièce -> PPosition
-	// Renvoie la position de la pièce 
+	// Renvoie la position de la pièce si encore en vie
 	var aPourPosition : PPosition {get set}
 
 	// changerPosition : PPièce x PPosition -> TPièce
