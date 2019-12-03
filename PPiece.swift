@@ -1,16 +1,16 @@
 protocol PPiece {
 
-	// init: String x ECouleur x Bool x PPosition -> PPièce
+	// init: EPiece x ECouleur x Bool x PPosition -> PPièce
 	// Création d’une pièce avec un nom, une couleur, une position et si c'est un maître ou non
 	// Pre: Le nom de la couleur est soit "Rouge" soit "Bleu"
 	// Pre: la position doit se situer sur le plateau
 	// newPosition.estOccupePar = la pièce créé
-	init (newNom : String, newCouleur : ECouleur, newEstMaitre : Bool, newPosition : PPosition)
+	init (newNom : EPiece, newCouleur : ECouleur, newEstMaitre : Bool, newPosition : PPosition)
 	
-	// aPourNom : PPièce -> String
+	// aPourNom : PPièce -> EPiece
 	// Donne le nom de la pièce 
-	// Le nom doît être court car utilisé lors de l'affichage du plateau (exemple PB1 pour pion bleu 1 ou MR pour maitre Rouge)
-	var aPourNom : String {get}
+	// Le nom doit correspondre à P1, P2, P3, P4 pour un pion ou M1 pour un maître
+	var aPourNom : EPiece {get}
 
 	// aPourCouleurP : PPièce -> ECouleur
 	// Donne la couleur de la pièce ("Bleu" ou "Rouge")
