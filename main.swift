@@ -1,11 +1,22 @@
 func afficheTableJeu (partie : POnimata) {
+	let rouge : String = "\u{001B}[0;31m"
+	let bleu : String = "\u{001B}[0;34m"
+	let blanc : String = "\u{001B}[0;37m"
 	for y in stride(from: 4, to: -1, by: -1) {
 		var chaine : String = ""
 		for x in 0...4 {
 			var positionTestee : PPosition = PPosition (newX : x, newY : y)
 			if let piece = positionTestee.estOccupe {
-				chaine += Sring(piece.aPourNom) 
+				if piece.aPourCouleurP = ECouleur.Rouge {
+					chaine += rouge 
+					chaine += String(piece.aPourNom)
+					chaine += " "
+				} else {
+					chaine += bleu 
+					chaine += String(piece.aPourNom)
+					chaine += " "
 			} else {
+				chaine += blanc
 				chaine += " _ "
 			}
 		}
