@@ -34,7 +34,7 @@ protocol PJoueur {
 	// Resultat : une PCarte qui correspond à la carte2 du joueur
 	var aPourCarte2 : PCarte! {get set}
 
-	// recupPiece : EPiece -> PPiece
+	// recupPiece : PJoueur x EPiece -> PPiece
 	// Resultat : cette fonction renvoie la pièce correspondant au String ssi elle appartient au joueurCourant (ce qui implique qu'elle n'a pas été éliminée)
 	// Pre : le String entré en paramètre doit correspondre au nom d'une pièce que le joueur détient
 	// Post : une Pièce correspondant à la chaîne de caractère est retournée
