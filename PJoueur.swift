@@ -40,7 +40,7 @@ protocol PJoueur {
 	// Post : une Pièce correspondant à la chaîne de caractère est retournée
 	func recupPiece (pieceSaisie : EPiece) -> PPiece
 
-	// elimine : PPiece x PJoueur -> TJoueur 
+	// elimine : PPiece x PJoueur -> PJoueur 
 	// Est utilisée lorsqu'une pièce est éliminé de la partie
 	// Resultat : enlève au joueur la pièce entrée en paramètre
 	mutating func elimine (piece : PPiece)
