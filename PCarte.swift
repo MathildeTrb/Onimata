@@ -10,12 +10,12 @@ protocol PCarte {
 	// Donne le nom de la carte
 	var aPourNomC : String {get}
 
-	// aPourCouleurC : PPièce -> ECouleur
+	// aPourCouleurC : PCarte -> ECouleur
 	// Donne la couleur de la carte 
 	// Post: Le nom de la couleur est "Rouge" ou "Bleu"
 	var aPourCouleurC : ECouleur {get}
 	
-	// aPourPositionReference : PPièce -> PPosition 
+	// aPourPositionReference : PCarte -> PPosition 
 	// Donne la position d'une pièce fictive référence (case noire sur le sujet de Projet)
 	// Cette position doit être sur le plateau 
 	var aPourPositionRef : PPosition {get}
