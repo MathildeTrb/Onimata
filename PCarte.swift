@@ -20,7 +20,7 @@ protocol PCarte {
 	// Cette position doit être sur le plateau 
 	var aPourPositionRef : PPosition {get}
 
-	// ajoutPosition : PCarte x PPosition -> TCarte
+	// ajoutPosition : PCarte x PPosition -> PCarte
 	// Ajoute une position à la carte comme illustrée sur le sujet
 	// la po
 	// Pre: La position doit se localiser sur le plateau
