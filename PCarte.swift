@@ -19,6 +19,11 @@ protocol PCarte {
 	// Donne la position d'une pièce fictive référence (case noire sur le sujet de Projet)
 	// Cette position doit être sur le plateau 
 	var aPourPositionRef : PPosition {get}
+	
+	// aPourPositionsPossibles : PCarte -> [PPosition]
+	// Donne la liste des positions possibles d'une pièce par rapport à la pièce de référence 
+	// Cette position doit être sur le plateau 
+	var aPourPositionsPossibles : [PPosition] {get set}
 
 	// ajoutPosition : PCarte x PPosition -> PCarte
 	// Ajoute une position à la carte comme illustrée sur le sujet
