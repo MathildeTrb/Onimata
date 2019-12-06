@@ -114,8 +114,8 @@ while partieContinue {
 		print ("pièce disponible pour", joueurCourant.aPourNomJ)
 		afficheTableJeu (partie : tableJeu)
 		print ("carte disponible pour", joueurCourant.aPourNomJ)
-		print (joueurCourant.aPourCarte1.decritCarte(sens : cpt))
-		print (joueurCourant.aPourCarte2.decritCarte(sens : cpt))
+		afficheCarte(carte : joueurCourant.aPourCarte1, sens : cpt)
+		afficheCarte(carte : joueurCourant.aPourCarte2, sens : cpt)
 
 		// choix de la pièce
 		print ("choisir une pièce")
