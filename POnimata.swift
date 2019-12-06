@@ -25,6 +25,6 @@ protocol POnimata {
 	// choixPremierJoueur : POnimata -> PJoueur
 	// Regarde la couleur de la carte en réserve et détermine ainsi le joueur de la même couleur commençant la partie 
 	// Post : retourne le joueur jouant le premier tour
-	func choixPremierJoueur () -> PJoueur
+	func choixPremierJoueur (jR : Pjoueur, jB : Pjoueur) -> PJoueur
 	
 }
