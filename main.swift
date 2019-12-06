@@ -9,15 +9,17 @@ func afficheTableJeu (partie : POnimata) {
 			if let piece = positionTestee.estOccupe {
 				if piece.aPourCouleurP = ECouleur.Rouge {
 					chaine += rouge 
+					chaine += " "
 					chaine += String(piece.aPourNom)
 					chaine += " "
 				} else {
 					chaine += bleu 
+					chaine += " "
 					chaine += String(piece.aPourNom)
 					chaine += " "
 			} else {
 				chaine += blanc
-				chaine += " _ "
+				chaine += " -- "
 			}
 		}
 		print (chaine)
