@@ -93,7 +93,7 @@ if joueurCourant == joueurB {
 	joueurAdverse = joueurB 
 }
 
-// compteur du nombre de tour, aide pour gérer l'affichage des carte (paramètre sens pour la fonction affichageCarte et estUnDeplacementPossible) 
+// compteur du nombre de tour, aide pour gérer l'affichage des carte (paramètre sens pour la fonction estUnDeplacementPossible) 
 // sa valeur change à chaque changement de joueur 
 // si -1 besoin d'afficher les déplacements possibles de la carte dans l'autre sens 
 var cpt : Int = 1 
