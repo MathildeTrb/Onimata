@@ -85,7 +85,7 @@ if let nomJoueurRouge = readLine () {
 tableJeu.distributionCarte (jBleu : joueurB, jRouge : joueurR)  
  
 // définit la couleur du premier joueur en fonction de la couleur de la carte en réserve
-var joueurCourant : PJoueur = tableJeu.choixPremierJoueur()
+var joueurCourant : PJoueur = tableJeu.choixPremierJoueur(jR : joueurR, jB : joueurB)
 var joueurAdverse : PJoueur
 if joueurCourant == joueurB {
 	joueurAdverse = joueurR
@@ -271,10 +271,7 @@ while partieContinue {
 	}
 
 	tableJeu.echangeCarte (newRes : carteAEchanger, newMain : tableJeu.aEnReserve, joueur : joueurCourant)
-
-	joueurCourant.autreJoueur()
-	joueurAdverse.autreJoueur()
-
+	
 	if cpt == 1 {
 		cpt = -1
 		joueurCourant = joueurR
