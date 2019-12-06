@@ -277,8 +277,12 @@ while partieContinue {
 
 	if cpt == 1 {
 		cpt = -1
+		joueurCourant = joueurR
+		joueurAdverse = joueurB
 	} else {
 		cpt = 1
+		joueurCourant = joueurB
+		joueurCourant = joueurR
 	}
 		
 }
