@@ -259,7 +259,7 @@ while partieContinue {
 		}
 
 		// on change la position de notre pièce 
-		pieceCourante.changerPosition(newPosition)
+		pieceCourante.changerPosition(newPosition : newPosition)
 
 		carteAEchanger = carteCourante
 
