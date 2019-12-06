@@ -143,9 +143,12 @@ while partieContinue {
 			print ("x :")
 			var XSaisie = readLine()
 			if let X = XSaisie {
-				newPositionX = Int(X) ?? 0
+				newPositionX = Int(X) ?? -1
 			} else {
 				print ("erreur pour x")
+				xValide = false
+			}
+			if newPositionX<0 || newPositionX>4 {
 				xValide = false
 			}
 		} while !xValide
@@ -157,10 +160,13 @@ while partieContinue {
 			print ("y :")
 			var YSaisie = readLine()
 			if let Y = YSaisie {
-				newPositionY = Int(Y) ?? 0		
+				newPositionY = Int(Y) ?? -1		
 			} else {
 				print ("erreur pour y")
 				yValide = false 
+			}
+			if newPositionY<0 || newPositionY>4 {
+				xValide = false
 			}
 		} while !yValide
 		
