@@ -23,7 +23,7 @@ protocol PPosition {
 	func estUneArcheDuJoueur (joueur : PJoueur) -> Bool
 }
 
-class Position: PPosition {
+struct Position: PPosition {
     
     var positionX : Int
     var positionY : Int
