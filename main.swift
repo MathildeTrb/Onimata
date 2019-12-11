@@ -5,18 +5,19 @@ func afficheTableJeu (partie : POnimata) {
 	for y in stride(from: 4, to: -1, by: -1) {
 		var chaine : String = ""
 		for x in 0...4 {
-			var positionTestee : PPosition = PPosition (newX : x, newY : y)
-			if let piece = positionTestee.estOccupe {
-				if piece.aPourCouleurP = ECouleur.Rouge {
+			var positionTestee : PPosition = Position (newX : x, newY : y)
+			if let piece = positionTestee.estOccupePar {
+				if piece.aPourCouleurP == ECouleur.Rouge {
 					chaine += rouge 
 					chaine += " "
-					chaine += String(piece.aPourNom)
+					chaine += piece.aPourNom.rawValue
 					chaine += " "
 				} else {
 					chaine += bleu 
 					chaine += " "
-					chaine += String(piece.aPourNom)
+					chaine += piece.aPourNom.rawValue
 					chaine += " "
+					}
 			} else {
 				chaine += blanc
 				chaine += " -- "
@@ -30,7 +31,7 @@ func afficheCarte (carte : PCarte, sens : Int) {
 	print ("carte : ", carte.aPourNomC)
 	if sens == 1 {
 		print ("Position référence : x = ", carte.aPourPositionRef.positionX, " y = ", carte.aPourPositionRef.positionY)
-		for pPossible in carte.aPourPositionPossible {
+		for pPossible in carte.aPourPositionsPossibles {
 			print ("Position Possible : x = ", pPossible.positionX, " y = ", pPossible.positionY)
 		}
 	} else {
@@ -48,12 +49,12 @@ func afficheCarte (carte : PCarte, sens : Int) {
 		
 		// gère les positions possibles
 		chaine = ""
-		for pPossible in carte.aPourPositionPossible {
+		for pPossible in carte.aPourPositionsPossibles {
 			chaine = "Position Possible : x = "
-			var xPos : Int = abs ( pPossible.positionX - 4 )
+			let xPos : Int = abs ( pPossible.positionX - 4 )
 			chaine += String(xPos)
 			chaine += " y = "
-			var yPos : Int = abs ( pPossible.positionY - 4 )
+			let yPos : Int = abs ( pPossible.positionY - 4 )
 			chaine += String(yPos)
 			print(chaine)
 		}
@@ -63,7 +64,7 @@ func afficheCarte (carte : PCarte, sens : Int) {
 
 // Initialise la partie avec le plateau et les pièces à leur position initiale (pièce bleu en bas dans l'affichage du plateau, par conséquent pièce rouge en haut)
 var tableJeu : POnimata 
-tableJeu = POnimata() 
+tableJeu = Onimata() 
 // Indique qu'aucun des deux joueurs n'a pour le moment gagné, sera utilisé dans la boucle 
 var partieContinue : Bool = true 
 
@@ -71,14 +72,14 @@ var partieContinue : Bool = true
 print ("Entrez le nom du joueur Bleu")
 var joueurB : PJoueur
 if let nomJoueurBleu = readLine () {
-	joueurB = PJoueur(newNom : nomJoueurBleu, newCouleur : "Bleu", plateau : tableJeu) 
+	joueurB = Joueur(newNom : nomJoueurBleu, newCouleur : ECouleur.Bleu, plateau : tableJeu) 
 } 
 
 // initialisation du joueur rouge 
 print ("entrez le nom du joueur Rouge")
 var joueurR : PJoueur
 if let nomJoueurRouge = readLine () {
-	joueurR = PJoueur(newNom : nomJoueurRouge, newCouleur : "Rouge", plateau : tableJeu) 
+	joueurR = Joueur(newNom : nomJoueurRouge, newCouleur : ECouleur.Rouge, plateau : tableJeu) 
 }  
 
 // Distribue les 5 cartes parmis les 15 de manière aléatoire 
@@ -87,7 +88,7 @@ tableJeu.distributionCarte (jBleu : joueurB, jRouge : joueurR)
 // définit la couleur du premier joueur en fonction de la couleur de la carte en réserve
 var joueurCourant : PJoueur = tableJeu.choixPremierJoueur(jR : joueurR, jB : joueurB)
 var joueurAdverse : PJoueur
-if joueurCourant == joueurB {
+if joueurCourant.aPourNomJ == joueurB.aPourNomJ {
 	joueurAdverse = joueurR
 } else {
 	joueurAdverse = joueurB 
@@ -97,7 +98,7 @@ if joueurCourant == joueurB {
 // sa valeur change à chaque changement de joueur 
 // si -1 besoin d'afficher les déplacements possibles de la carte dans l'autre sens 
 var cpt : Int = 1 
-if joueurCourant.aPourCouleurJ == "Rouge" {
+if joueurCourant.aPourCouleurJ == ECouleur.Rouge {
 	cpt = -1
 }
 
@@ -108,7 +109,7 @@ while partieContinue {
 	// On affectera une valeure à carteAEchanger après le déplacement du pion si déplacement possible, sinon après le choix de la carte à défausser
 	var carteAEchanger : PCarte
 
-	if joueurCourant.peutJouer() {
+	if joueurCourant.peutJouer () {
 
 		//  affichage de l'état du jeu
 		print ("pièce disponible pour", joueurCourant.aPourNomJ)
@@ -123,7 +124,7 @@ while partieContinue {
 		if let choixSaisie = readLine(){
 			choixPiece = choixSaisie
 		}
-		var pieceCourante : PPiece = joueurCourant.recupPiece(pieceSaisie : choixPiece)
+		var pieceCourante : PPiece = joueurCourant.recupPiece(pieceSaisie : EPiece(rawValue : choixPiece)!)
 
 		// choix de la carte 
 		print ("choisir une Carte par son nom")
@@ -174,7 +175,7 @@ while partieContinue {
 		// vérification que la nouvelle position demandée est possible 
 		// Si ce n'est pas le cas je demande si le joueur veut changer de pièce ou changer de carte 
 		// Je finis par demander une nouvelle position pour la pièce choisie 
-		while !pieceCourante.estUnDeplacementPossible(newPosition : PPosition (newX : newPositionX, newY : newPositionY), carte : carteCourante, sens : cpt) {
+		while !pieceCourante.estUnDeplacementPossible(newPosition : Position (newX : newPositionX, newY : newPositionY), carte : carteCourante, sens : cpt) {
 
 			print ("déplacement impossible. Voulez-vous garder la pièce séléctionnée : oui ou non")
 			var choix : String			
@@ -189,7 +190,7 @@ while partieContinue {
 				if let choixSaisie = readLine(){
 					choixPiece = choixSaisie
 				}
-				pieceCourante = joueurCourant.recupPiece(pieceSaisie : choixPiece)
+				pieceCourante = joueurCourant.recupPiece(pieceSaisie : EPiece(rawValue: choixPiece)!)
 			}
 
 			print ("Voulez-vous garder la carte sélectionnée : oui ou non")
@@ -240,7 +241,7 @@ while partieContinue {
 
 		}
 
-		var newPosition = PPosition (newX : newPositionX, newY : newPositionY)
+		var newPosition = Position (newX : newPositionX, newY : newPositionY)
 
 		// On commence par vérifier s'il y a une pièce adverse sur la case où nous avons déplacé notre pièce 
 		if let piecePresente = newPosition.estOccupePar() {
