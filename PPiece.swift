@@ -76,10 +76,10 @@ class Piece : PPiece {
                     carte = self._reverse_card(carte : carte)
                 }
                 if carte.contient(pos : newPosition, pieceRef : self) {
-                    return True
+                    return true
                 }
             }
         }
-        return False
+        return false
     }
 }

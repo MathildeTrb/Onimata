@@ -62,9 +62,9 @@ class Carte : PCarte {
         
         for position in aPourPositionsPossibles {
             if pos == position {
-                return True
+                return true
             }
         }
-        return False
+        return false
     }
 }
