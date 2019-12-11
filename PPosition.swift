@@ -22,3 +22,25 @@ protocol PPosition {
 	// Post: retourne True si la position correspond à l'arche du joueur sinon False
 	func estUneArcheDuJoueur (joueur : PJoueur) -> Bool
 }
+
+struct Position: PPosition {
+    
+    var positionX : Int
+    var positionY : Int
+    var estOccupePar : Piece?
+    
+    init(newX : Int, newY : Int) {
+        self.positionX = newX
+        self.positionY = newY
+        self.estOccupePar = nil
+    }
+    
+    func estUneArcheDuJoueur(joueur : PJoueur) -> Bool {
+        if (joueur.aPourCouleurJ == ECouleur.Rouge) {
+            return self.positionX == 2 || self.positionY == 4
+        }
+        else {
+            return self.positionX == 2 || self.positionY == 0
+        }
+    }
+}
