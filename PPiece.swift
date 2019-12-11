@@ -37,3 +37,34 @@ protocol PPiece {
 	func estUnDeplacementPossible (newPosition : PPosition, carte : PCarte, sens : Int) -> Bool
 
 }
+
+class Piece : PPiece {
+    
+    var aPourNom : EPiece
+    var aPourCouleurP : ECouleur
+    var estMaitre : Bool
+    var aPourPosition : PPosition
+    
+    init(newNom : EPiece, newCouleur : ECouleur, newEstMaitre : Bool, newPosition : PPosition) {
+        self.aPourNom = newNom
+        self.aPourCouleurP = newCouleur
+        self.estMaitre = newEstMaitre
+        self.aPourPosition = newPosition
+    }
+    
+    mutating func changePosition(newPosition : PPosition) {
+        newPosition.estOccupePar = self
+        aPourPosition = newPosition
+    }
+    
+    func estUnDeplacementPossible(newPosition : PPosition, carte : PCarte, sens : Int) -> Bool {
+        if carte.contient(pos : newPosition, pieceRef : self) {
+            if newPosition.estOccupePar == nil {
+                return True
+            }
+        }
+        else {
+            return False
+        }
+    }
+}
