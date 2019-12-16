@@ -213,15 +213,8 @@ struct Joueur : PJoueur {
             i = i + 1
         }
         
-        /*
-        while(!newPositionPossible && i < self._piece[i].count - 1){
-            while(!newPositionPossible && j < self._carte1.aPourPositionsPossibles.count - 1){
-                if(self._piece[i].estUnDeplacementPossible(newPosition : , carte : self._carte1, sens : sensJ)){
-                    
-                }
-            }
-        }
-         */
+        return newPositionPossible
+        
     }
     
 }
