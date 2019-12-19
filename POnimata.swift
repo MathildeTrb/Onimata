@@ -1,52 +1,76 @@
 protocol POnimata {
     
-    // init : -&gt; POnimata
+    // init : -> POnimata
     // retourne le plateau de jeu de taille 5x5
     // chaque case du plateau est de type position 
     // avec les 10 pièces à leur position initiale : les bleus en bas et les rouges en haut et le maitre au milieu des pions
     init ()
     
-    // aEnReserve : POnimata -&gt; PCarte 
+    // aEnReserve : POnimata -> PCarte 
     // Donne la carte qui est en réserve
     var aEnReserve : PCarte {get set}
     
-    // distributionCarte : POnimata x PJoueur x PJoueur -&gt; POnimata
+    // distributionCarte : POnimata x PJoueur x PJoueur -> POnimata
     // Création des 15 cartes de jeu et affectation de manière aléatoire de la carte réserve et des cartes dans les mains de chaque joueur
     // modifie aEnreserve de POnimata, aPourCarte1 et aPourCarte2 des joueurs ( PJoueur ) 
-    mutating func distributionCarte (jBleu : PJoueur, jRouge: PJoueur)
+    mutating func distributionCarte (jBleu : inout PJoueur, jRouge: inout PJoueur)
     
-    // echangeCarte : POnimata x PCarte x PCarte x PJoueur -&gt; POnimata
+    // echangeCarte : POnimata x PCarte x PCarte x PJoueur -> POnimata
     // Echange la carte de la réserve avec la carte que le joueur courant vient d'utiliser (ou la carte que le joueur doit défausser si aucun déplacement n'est possible)
     // Pre: le premier paramètre correspond à la carte utilisée (ou défaussée)
     // Pre: le second paramètre correspond à la carte dans la réserve
     // Pre: le troisième paramètre correspond au joueurCourant
-    mutating func echangeCarte (newRes : PCarte, newMain : PCarte, joueur : PJoueur)
+    mutating func echangeCarte (newRes : PCarte, newMain : PCarte, joueur : inout PJoueur)
     
-    // choixPremierJoueur : POnimata -&gt; PJoueur
+    // choixPremierJoueur : POnimata -> PJoueur
     // Regarde la couleur de la carte en réserve et détermine ainsi le joueur de la même couleur commençant la partie 
     // Post : retourne le joueur jouant le premier tour
-    func choixPremierJoueur (jR : PJoueur, jB : PJoueur) -&gt; PJoueur
+    func choixPremierJoueur (jR : PJoueur, jB : PJoueur) -> PJoueur
+
+    func getPosition(x : Int, y : Int) -> PPosition
+
+    mutating func setPosition(position : PPosition)
     
 }
 
 struct Onimata : POnimata {
     var aEnReserve : PCarte
+    var _grille : [[PPosition]] = [] 
     init() {
-        var p1_bleu : PPiece = Piece(newNom : EPiece.P1, newCouleur : ECouleur.Bleu, newEstMaitre : false, newPosition : Position(newX : 0, newY : 0))
-        var p2_bleu : PPiece = Piece(newNom : EPiece.P2, newCouleur : ECouleur.Bleu, newEstMaitre : false, newPosition : Position(newX : 1, newY : 0))
-        var m1_bleu : PPiece = Piece(newNom : EPiece.M1, newCouleur : ECouleur.Bleu, newEstMaitre : true, newPosition : Position(newX : 2, newY : 0))
-        var p3_bleu : PPiece = Piece(newNom : EPiece.P3, newCouleur : ECouleur.Bleu, newEstMaitre : false, newPosition : Position(newX : 3, newY : 0))
-        var p4_bleu : PPiece = Piece(newNom : EPiece.P4, newCouleur : ECouleur.Bleu, newEstMaitre : false, newPosition : Position(newX : 4, newY : 0))
+        for i in 0 ... 4 {
+            var line : [Position] = []
+            for j in 0 ... 4 {
+                let pos = Position(newX : i, newY : j)
+                line.append(pos)
+            }
+            self._grille.append(line)
+        }
+
+        var p1_bleu : PPiece = Piece(newNom : EPiece.P1, newCouleur : ECouleur.Bleu, newEstMaitre : false, newPosition : self._grille[0][0])
+        self._grille[0][0].estOccupePar = p1_bleu
+        var p2_bleu : PPiece = Piece(newNom : EPiece.P2, newCouleur : ECouleur.Bleu, newEstMaitre : false, newPosition : self._grille[1][0])
+        self._grille[1][0].estOccupePar = p2_bleu
+        var m1_bleu : PPiece = Piece(newNom : EPiece.M1, newCouleur : ECouleur.Bleu, newEstMaitre : true, newPosition : self._grille[2][0])
+        self._grille[2][0].estOccupePar = m1_bleu
+        var p3_bleu : PPiece = Piece(newNom : EPiece.P3, newCouleur : ECouleur.Bleu, newEstMaitre : false, newPosition : self._grille[3][0])
+        self._grille[3][0].estOccupePar = p3_bleu
+        var p4_bleu : PPiece = Piece(newNom : EPiece.P4, newCouleur : ECouleur.Bleu, newEstMaitre : false, newPosition : self._grille[4][0])
+        self._grille[4][0].estOccupePar = p4_bleu
         
-        var p1_rouge : PPiece = Piece(newNom : EPiece.P1, newCouleur : ECouleur.Rouge, newEstMaitre : false, newPosition : Position(newX : 0, newY : 0))
-        var p2_rouge : PPiece = Piece(newNom : EPiece.P2, newCouleur : ECouleur.Rouge, newEstMaitre : false, newPosition : Position(newX : 1, newY : 0))
-        var m1_rouge : PPiece = Piece(newNom : EPiece.M1, newCouleur : ECouleur.Rouge, newEstMaitre : true, newPosition : Position(newX : 2, newY : 0))
-        var p3_rouge : PPiece = Piece(newNom : EPiece.P3, newCouleur : ECouleur.Rouge, newEstMaitre : false, newPosition : Position(newX : 3, newY : 0))
-        var p4_rouge : PPiece = Piece(newNom : EPiece.P4, newCouleur : ECouleur.Rouge, newEstMaitre : false, newPosition : Position(newX : 4, newY : 0))
-        
+        var p1_rouge : PPiece = Piece(newNom : EPiece.P1, newCouleur : ECouleur.Rouge, newEstMaitre : false, newPosition : self._grille[4][4])
+        self._grille[4][4].estOccupePar = p1_rouge
+        var p2_rouge : PPiece = Piece(newNom : EPiece.P2, newCouleur : ECouleur.Rouge, newEstMaitre : false, newPosition : self._grille[3][4])
+        self._grille[3][4].estOccupePar = p2_rouge
+        var m1_rouge : PPiece = Piece(newNom : EPiece.M1, newCouleur : ECouleur.Rouge, newEstMaitre : true, newPosition : self._grille[2][4])
+        self._grille[2][4].estOccupePar = m1_rouge
+        var p3_rouge : PPiece = Piece(newNom : EPiece.P3, newCouleur : ECouleur.Rouge, newEstMaitre : false, newPosition : self._grille[1][4])
+        self._grille[1][4].estOccupePar = p3_rouge
+        var p4_rouge : PPiece = Piece(newNom : EPiece.P4, newCouleur : ECouleur.Rouge, newEstMaitre : false, newPosition : self._grille[0][4])
+        self._grille[0][4].estOccupePar = p4_rouge
+
         self.aEnReserve = Carte(newNom: "default", newCouleur: ECouleur.Bleu)
     }
-    private func _create_card() -&gt; [Carte] {
+    private func _create_card() -> [Carte] {
         var tiger = Carte(newNom: "Tiger", newCouleur: ECouleur.Bleu)
         tiger.ajoutPosition(pos: Position(newX: 2, newY: 1))
         tiger.ajoutPosition(pos: Position(newX: 2, newY: 4))
@@ -133,9 +157,8 @@ struct Onimata : POnimata {
         
         return [tiger, crab, monkey, crane, dragon, elephant, mantis, boar, frog, goose, horse, eel, rabbit, rooster, ox, cobra]
     }
-    mutating func distributionCarte(jBleu:  PJoueur, jRouge: PJoueur) {
-        var jBleu = jBleu
-        var jRouge = jRouge
+    
+    mutating func distributionCarte(jBleu: inout PJoueur, jRouge: inout PJoueur) {
         var cards = self._create_card()
         var distribution : Int = Int.random(in: 0...15)
         var cards_distribue : [Carte] = []
@@ -152,22 +175,31 @@ struct Onimata : POnimata {
         jRouge.aPourCarte2 = cards_distribue[3]
         self.aEnReserve = cards_distribue[4]
     }
-    mutating func echangeCarte(newRes: PCarte, newMain: PCarte, joueur: PJoueur) {
+
+    mutating func echangeCarte(newRes: PCarte, newMain: PCarte, joueur: inout PJoueur) {
         self.aEnReserve = newRes
-        var joueur = joueur
-        if joueur.aPourCarte1.aPourNomC == newMain.aPourNomC {
-            joueur.aPourCarte2 = newMain
-        }
-        else {
+        if joueur.aPourCarte1.aPourNomC == newRes.aPourNomC {
             joueur.aPourCarte1 = newMain
         }
+        else {
+            joueur.aPourCarte2 = newMain
+        }
     }
-    func choixPremierJoueur(jR: PJoueur, jB: PJoueur) -&gt; PJoueur {
+
+    func choixPremierJoueur(jR: PJoueur, jB: PJoueur) -> PJoueur {
         if self.aEnReserve.aPourCouleurC == jR.aPourCouleurJ {
             return jR
         }
         else {
             return jB
         }
+    }
+
+    func getPosition(x : Int, y : Int) -> PPosition {
+        return self._grille[x][y]
+    }
+
+    mutating func setPosition(position : PPosition) {
+        self._grille[position.positionX][position.positionY] = position
     }
 }
