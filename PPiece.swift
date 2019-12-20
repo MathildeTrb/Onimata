@@ -62,34 +62,27 @@ struct Piece : PPiece {
     private func _reverse_card(carte : PCarte) -> PCarte {
         var newPossiblePos : [PPosition] = []
         for pos in carte.aPourPositionsPossibles {
-            var pos = pos
-            pos.positionX = -(pos.positionX - 4)
-            pos.positionY = -(pos.positionY - 4)
-            newPossiblePos.append(pos)
+            var position = pos
+            position.positionX = -(pos.positionX - 4)
+            position.positionY = -(pos.positionY - 4)
+            newPossiblePos.append(position)
         }
-        var carte = carte
-        carte.aPourPositionsPossibles = newPossiblePos
-        return carte
+        var card = carte
+        card.aPourPositionsPossibles = newPossiblePos
+        return card
     }
     
     func estUnDeplacementPossible(newPosition : PPosition, carte : PCarte, sens : Int) -> Bool {
         if newPosition.positionX >= 0 && newPosition.positionX <= 4 && newPosition.positionY >= 0 && newPosition.positionY <= 4 {
             if newPosition.estOccupePar == nil || newPosition.estOccupePar?.aPourCouleurP != self.aPourCouleurP {
+                var carte = carte
                 if sens == -1 {
-                    var carte = carte
                     carte = self._reverse_card(carte : carte)
                 }
                 if carte.contient(pos : newPosition, pieceRef : self) {
-                    if sens == -1 {
-                        var carte = carte
-                        carte = self._reverse_card(carte : carte)
-                    }
                     return true
                 }
-                if sens == -1 {
-                    var carte = carte
-                    carte = self._reverse_card(carte : carte)
-                }
+                return false
             }
             return false
         }

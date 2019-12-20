@@ -184,25 +184,36 @@ struct Joueur : PJoueur {
     // Resultat : Si au moins une nouvelle position est possible pour l'une des deux cartes ainsi que l'une des pièces du joueur, renvoie True, sinon False
     func peutJouer () -> Bool{
         var sens : Int = 1
-        
+        var found : Bool = false
         if(self._couleur == ECouleur.Rouge){
             sens = -1
         }
-        
-        for card in self._carte {
-            for p in self._piece {
-                for x in 0...4 {
-                    for y in 0...4 {
+
+        var i : Int = 0
+        while !found && i < self._carte.count {
+            let card = self._carte[i]
+            var j : Int = 0
+            while !found && j < self._piece.count {
+                let p = self._piece[j]
+                var x : Int = 0
+                while !found && x <= 4 {
+                    var y : Int = 0
+                    while !found && y <= 4 {
                         if p.estUnDeplacementPossible(newPosition : self._plateau.getPosition(x : x, y : y), carte : card, sens : sens) {
-                            return true
+                            found = true
                         }
+                        y += 1
                     }
+                    x += 1
                 }
+                j += 1
             }
+            i += 1
         }
-        
-        return false
-        
+
+        return found
+
     }
+
     
 }

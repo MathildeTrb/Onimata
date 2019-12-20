@@ -49,19 +49,19 @@ protocol PCarte {
     
 }
 
-class Carte : PCarte {
+struct Carte : PCarte {
     
     var aPourNomC : String
     var aPourCouleurC : ECouleur
     var aPourPositionRef : PPosition = Position(newX : 2, newY : 2)
     var aPourPositionsPossibles : [PPosition] = []
     
-    required init(newNom : String, newCouleur : ECouleur) {
+    init(newNom : String, newCouleur : ECouleur) {
         self.aPourNomC = newNom
         self.aPourCouleurC = newCouleur
     }
     
-    func ajoutPosition(pos : PPosition) {
+    mutating func ajoutPosition(pos : PPosition) {
         aPourPositionsPossibles.append(pos)
     }
     
@@ -262,26 +262,37 @@ struct Joueur : PJoueur {
     // Resultat : Si au moins une nouvelle position est possible pour l'une des deux cartes ainsi que l'une des pièces du joueur, renvoie True, sinon False
     func peutJouer () -> Bool{
         var sens : Int = 1
-        
+        var found : Bool = false
         if(self._couleur == ECouleur.Rouge){
             sens = -1
         }
-        
-        for card in self._carte {
-            for p in self._piece {
-                for x in 0...4 {
-                    for y in 0...4 {
+
+        var i : Int = 0
+        while !found && i < self._carte.count {
+            let card = self._carte[i]
+            var j : Int = 0
+            while !found && j < self._piece.count {
+                let p = self._piece[j]
+                var x : Int = 0
+                while !found && x <= 4 {
+                    var y : Int = 0
+                    while !found && y <= 4 {
                         if p.estUnDeplacementPossible(newPosition : self._plateau.getPosition(x : x, y : y), carte : card, sens : sens) {
-                            return true
+                            found = true
                         }
+                        y += 1
                     }
+                    x += 1
                 }
+                j += 1
             }
+            i += 1
         }
-        
-        return false
-        
+
+        return found
+
     }
+
     
 }
 protocol POnimata {
@@ -357,86 +368,86 @@ struct Onimata : POnimata {
         self.aEnReserve = Carte(newNom: "default", newCouleur: ECouleur.Bleu)
     }
     private func _create_card() -> [Carte] {
-        let tiger = Carte(newNom: "Tiger", newCouleur: ECouleur.Bleu)
+        var tiger = Carte(newNom: "Tiger", newCouleur: ECouleur.Bleu)
         tiger.ajoutPosition(pos: Position(newX: 2, newY: 1))
         tiger.ajoutPosition(pos: Position(newX: 2, newY: 4))
         
-        let crab = Carte(newNom: "Crab", newCouleur: ECouleur.Bleu)
+        var crab = Carte(newNom: "Crab", newCouleur: ECouleur.Bleu)
         crab.ajoutPosition(pos: Position(newX: 0, newY: 2))
         crab.ajoutPosition(pos: Position(newX: 2, newY: 3))
         crab.ajoutPosition(pos: Position(newX: 4, newY: 2))
         
-        let monkey = Carte(newNom: "Monkey", newCouleur: ECouleur.Bleu)
+        var monkey = Carte(newNom: "Monkey", newCouleur: ECouleur.Bleu)
         monkey.ajoutPosition(pos: Position(newX: 1, newY: 1))
         monkey.ajoutPosition(pos: Position(newX: 3, newY: 1))
         monkey.ajoutPosition(pos: Position(newX: 1, newY: 3))
         monkey.ajoutPosition(pos: Position(newX: 3, newY: 3))
         
-        let crane = Carte(newNom: "Crane", newCouleur: ECouleur.Bleu)
+        var crane = Carte(newNom: "Crane", newCouleur: ECouleur.Bleu)
         crane.ajoutPosition(pos: Position(newX: 1, newY: 1))
         crane.ajoutPosition(pos: Position(newX: 3, newY: 1))
         crane.ajoutPosition(pos: Position(newX: 2, newY: 3))
         
-        let dragon = Carte(newNom: "Dragon", newCouleur: ECouleur.Rouge)
+        var dragon = Carte(newNom: "Dragon", newCouleur: ECouleur.Rouge)
         dragon.ajoutPosition(pos: Position(newX: 1, newY: 1))
         dragon.ajoutPosition(pos: Position(newX: 3, newY: 1))
         dragon.ajoutPosition(pos: Position(newX: 0, newY: 3))
         dragon.ajoutPosition(pos: Position(newX: 4, newY: 3))
         
-        let elephant = Carte(newNom: "Elephant", newCouleur: ECouleur.Rouge)
+        var elephant = Carte(newNom: "Elephant", newCouleur: ECouleur.Rouge)
         elephant.ajoutPosition(pos: Position(newX: 1, newY: 2))
         elephant.ajoutPosition(pos: Position(newX: 3, newY: 2))
         elephant.ajoutPosition(pos: Position(newX: 1, newY: 3))
         elephant.ajoutPosition(pos: Position(newX: 3, newY: 3))
         
-        let mantis = Carte(newNom: "Mantis", newCouleur: ECouleur.Rouge)
+        var mantis = Carte(newNom: "Mantis", newCouleur: ECouleur.Rouge)
         mantis.ajoutPosition(pos: Position(newX: 2, newY: 1))
         mantis.ajoutPosition(pos: Position(newX: 1, newY: 3))
         mantis.ajoutPosition(pos: Position(newX: 3, newY: 3))
         
-        let boar = Carte(newNom: "Boar", newCouleur: ECouleur.Rouge)
+        var boar = Carte(newNom: "Boar", newCouleur: ECouleur.Rouge)
         boar.ajoutPosition(pos: Position(newX: 1, newY: 2))
         boar.ajoutPosition(pos: Position(newX: 3, newY: 2))
         boar.ajoutPosition(pos: Position(newX: 2, newY: 3))
         
-        let frog = Carte(newNom: "Frog", newCouleur: ECouleur.Rouge)
+        var frog = Carte(newNom: "Frog", newCouleur: ECouleur.Rouge)
         frog.ajoutPosition(pos: Position(newX: 3, newY: 1))
         frog.ajoutPosition(pos: Position(newX: 0, newY: 2))
         frog.ajoutPosition(pos: Position(newX: 1, newY: 3))
         
-        let goose = Carte(newNom: "Goose", newCouleur: ECouleur.Bleu)
+        var goose = Carte(newNom: "Goose", newCouleur: ECouleur.Bleu)
         goose.ajoutPosition(pos: Position(newX: 3, newY: 1))
         goose.ajoutPosition(pos: Position(newX: 1, newY: 2))
         goose.ajoutPosition(pos: Position(newX: 3, newY: 2))
         goose.ajoutPosition(pos: Position(newX: 1, newY: 3))
         
-        let horse = Carte(newNom: "Horse", newCouleur: ECouleur.Rouge)
+        var horse = Carte(newNom: "Horse", newCouleur: ECouleur.Rouge)
         horse.ajoutPosition(pos: Position(newX: 2, newY: 1))
         horse.ajoutPosition(pos: Position(newX: 1, newY: 2))
         horse.ajoutPosition(pos: Position(newX: 2, newY: 3))
         
-        let eel = Carte(newNom: "Eel", newCouleur: ECouleur.Bleu)
+        var eel = Carte(newNom: "Eel", newCouleur: ECouleur.Bleu)
         eel.ajoutPosition(pos: Position(newX: 1, newY: 1))
         eel.ajoutPosition(pos: Position(newX: 3, newY: 2))
         eel.ajoutPosition(pos: Position(newX: 1, newY: 3))
         
-        let rabbit = Carte(newNom: "Rabbit", newCouleur: ECouleur.Bleu)
+        var rabbit = Carte(newNom: "Rabbit", newCouleur: ECouleur.Bleu)
         rabbit.ajoutPosition(pos: Position(newX: 1, newY: 1))
         rabbit.ajoutPosition(pos: Position(newX: 3, newY: 3))
         rabbit.ajoutPosition(pos: Position(newX: 4, newY: 2))
         
-        let rooster = Carte(newNom: "Rooster", newCouleur: ECouleur.Rouge)
+        var rooster = Carte(newNom: "Rooster", newCouleur: ECouleur.Rouge)
         rooster.ajoutPosition(pos: Position(newX: 1, newY: 1))
         rooster.ajoutPosition(pos: Position(newX: 1, newY: 2))
         rooster.ajoutPosition(pos: Position(newX: 3, newY: 2))
         rooster.ajoutPosition(pos: Position(newX: 3, newY: 3))
         
-        let ox = Carte(newNom: "Ox", newCouleur: ECouleur.Bleu)
+        var ox = Carte(newNom: "Ox", newCouleur: ECouleur.Bleu)
         ox.ajoutPosition(pos: Position(newX: 2, newY: 1))
         ox.ajoutPosition(pos: Position(newX: 3, newY: 2))
         ox.ajoutPosition(pos: Position(newX: 2, newY: 3))
         
-        let cobra = Carte(newNom: "Cobra", newCouleur: ECouleur.Rouge)
+        var cobra = Carte(newNom: "Cobra", newCouleur: ECouleur.Rouge)
         cobra.ajoutPosition(pos: Position(newX: 3, newY: 1))
         cobra.ajoutPosition(pos: Position(newX: 1, newY: 2))
         cobra.ajoutPosition(pos: Position(newX: 3, newY: 3))
@@ -446,21 +457,31 @@ struct Onimata : POnimata {
     
     mutating func distributionCarte(jBleu: inout PJoueur, jRouge: inout PJoueur) {
         var cards = self._create_card()
-        var distribution : Int = Int.random(in: 0...15)
-        var cards_distribue : [Carte] = []
-        for i in 1 ... 5 {
-            if distribution == 16 {
-                distribution = 0
-            }
-            cards_distribue.append(cards[distribution])
-            distribution += 1
+        let a : Int = Int.random(in: 0...15)
+        var b : Int = Int.random(in: 0...15)
+        while a == b {
+            b = Int.random(in: 0...15)
         }
-        jBleu.aPourCarte1 = cards_distribue[0]
-        jBleu.aPourCarte2 = cards_distribue[1]
-        jRouge.aPourCarte1 = cards_distribue[2]
-        jRouge.aPourCarte2 = cards_distribue[3]
-        self.aEnReserve = cards_distribue[4]
+        var c : Int = Int.random(in: 0...15)
+        while a == c || b == c {
+            c = Int.random(in: 0...15)
+        }
+        var d : Int = Int.random(in: 0...15)
+        while a == d || b == d || c == d {
+            d = Int.random(in: 0...15)
+        }
+        var e : Int = Int.random(in: 0...15)
+        while a == e || b == e || c == e || d == e {
+            e = Int.random(in: 0...15)
+        }
+
+        jBleu.aPourCarte1 = cards[a]
+        jBleu.aPourCarte2 = cards[b]
+        jRouge.aPourCarte1 = cards[c]
+        jRouge.aPourCarte2 = cards[d]
+        self.aEnReserve = cards[e]
     }
+
 
     mutating func echangeCarte(newRes: PCarte, newMain: PCarte, joueur: inout PJoueur) {
         self.aEnReserve = newRes
@@ -482,7 +503,12 @@ struct Onimata : POnimata {
     }
 
     func getPosition(x : Int, y : Int) -> PPosition {
-        return self._grille[x][y]
+        if x <= 4 && x >= 0 && y <= 4 && y >= 0 {
+            return self._grille[x][y]
+        }
+        else {
+            return Position(newX : -1, newY : -1)
+        }
     }
 
     mutating func setPosition(position : PPosition) {
@@ -553,34 +579,27 @@ struct Piece : PPiece {
     private func _reverse_card(carte : PCarte) -> PCarte {
         var newPossiblePos : [PPosition] = []
         for pos in carte.aPourPositionsPossibles {
-            var pos = pos
-            pos.positionX = -(pos.positionX - 4)
-            pos.positionY = -(pos.positionY - 4)
-            newPossiblePos.append(pos)
+            var position = pos
+            position.positionX = -(pos.positionX - 4)
+            position.positionY = -(pos.positionY - 4)
+            newPossiblePos.append(position)
         }
-        var carte = carte
-        carte.aPourPositionsPossibles = newPossiblePos
-        return carte
+        var card = carte
+        card.aPourPositionsPossibles = newPossiblePos
+        return card
     }
     
     func estUnDeplacementPossible(newPosition : PPosition, carte : PCarte, sens : Int) -> Bool {
         if newPosition.positionX >= 0 && newPosition.positionX <= 4 && newPosition.positionY >= 0 && newPosition.positionY <= 4 {
             if newPosition.estOccupePar == nil || newPosition.estOccupePar?.aPourCouleurP != self.aPourCouleurP {
+                var carte = carte
                 if sens == -1 {
-                    var carte = carte
                     carte = self._reverse_card(carte : carte)
                 }
                 if carte.contient(pos : newPosition, pieceRef : self) {
-                    if sens == -1 {
-                        var carte = carte
-                        carte = self._reverse_card(carte : carte)
-                    }
                     return true
                 }
-                if sens == -1 {
-                    var carte = carte
-                    carte = self._reverse_card(carte : carte)
-                }
+                return false
             }
             return false
         }

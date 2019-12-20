@@ -37,19 +37,19 @@ protocol PCarte {
     
 }
 
-class Carte : PCarte {
+struct Carte : PCarte {
     
     var aPourNomC : String
     var aPourCouleurC : ECouleur
     var aPourPositionRef : PPosition = Position(newX : 2, newY : 2)
     var aPourPositionsPossibles : [PPosition] = []
     
-    required init(newNom : String, newCouleur : ECouleur) {
+    init(newNom : String, newCouleur : ECouleur) {
         self.aPourNomC = newNom
         self.aPourCouleurC = newCouleur
     }
     
-    func ajoutPosition(pos : PPosition) {
+    mutating func ajoutPosition(pos : PPosition) {
         aPourPositionsPossibles.append(pos)
     }
     
