@@ -1,13 +1,13 @@
+enum ECouleur {
+        case Rouge, Bleu
+}
+
 enum EPiece : String {
 	case P1 = "P1"
 	case P2 = "P2"
 	case P3 = "P3"
 	case P4 = "P4"
 	case M1 = "P5"
-}
-
-enum ECouleur {
-        case Rouge, Bleu
 }
 
 protocol PCarte {
@@ -67,8 +67,8 @@ class Carte : PCarte {
     
     func contient(pos : PPosition, pieceRef : PPiece) -> Bool {   
         for position in aPourPositionsPossibles {
-            var x = 2 - pieceRef.aPourPosition.positionX + pos.positionX
-            var y = 2 - pieceRef.aPourPosition.positionY + pos.positionY
+            let x = 2 - pieceRef.aPourPosition.positionX + pos.positionX
+            let y = 2 - pieceRef.aPourPosition.positionY + pos.positionY
             if x == position.positionX && y == position.positionY {
                 return true
             }
@@ -236,7 +236,7 @@ struct Joueur : PJoueur {
     // Pre : le String entré en paramètre doit correspondre au nom d'une pièce que le joueur détient
     // Post : une Pièce correspondant à la chaîne de caractère est retournée
     func recupPiece (pieceSaisie : EPiece) -> PPiece{
-        var i : Int = self.recherchePiece(piece : pieceSaisie)
+        let i : Int = self.recherchePiece(piece : pieceSaisie)
         
         if(i != -1){
             return self._piece[i]
@@ -250,7 +250,7 @@ struct Joueur : PJoueur {
     // Est utilisée lorsqu'une pièce est éliminé de la partie
     // Resultat : enlève au joueur la pièce entrée en paramètre
     mutating func elimine (piece : PPiece){
-        var i : Int = recherchePiece(piece:piece.aPourNom)
+        let i : Int = recherchePiece(piece:piece.aPourNom)
         
         if(i != -1){
             self._piece.remove(at:i)
@@ -332,111 +332,111 @@ struct Onimata : POnimata {
             self._grille.append(line)
         }
 
-        var p1_bleu : PPiece = Piece(newNom : EPiece.P1, newCouleur : ECouleur.Bleu, newEstMaitre : false, newPosition : self._grille[0][0])
+        let p1_bleu : PPiece = Piece(newNom : EPiece.P1, newCouleur : ECouleur.Bleu, newEstMaitre : false, newPosition : self._grille[0][0])
         self._grille[0][0].estOccupePar = p1_bleu
-        var p2_bleu : PPiece = Piece(newNom : EPiece.P2, newCouleur : ECouleur.Bleu, newEstMaitre : false, newPosition : self._grille[1][0])
+        let p2_bleu : PPiece = Piece(newNom : EPiece.P2, newCouleur : ECouleur.Bleu, newEstMaitre : false, newPosition : self._grille[1][0])
         self._grille[1][0].estOccupePar = p2_bleu
-        var m1_bleu : PPiece = Piece(newNom : EPiece.M1, newCouleur : ECouleur.Bleu, newEstMaitre : true, newPosition : self._grille[2][0])
+        let m1_bleu : PPiece = Piece(newNom : EPiece.M1, newCouleur : ECouleur.Bleu, newEstMaitre : true, newPosition : self._grille[2][0])
         self._grille[2][0].estOccupePar = m1_bleu
-        var p3_bleu : PPiece = Piece(newNom : EPiece.P3, newCouleur : ECouleur.Bleu, newEstMaitre : false, newPosition : self._grille[3][0])
+        let p3_bleu : PPiece = Piece(newNom : EPiece.P3, newCouleur : ECouleur.Bleu, newEstMaitre : false, newPosition : self._grille[3][0])
         self._grille[3][0].estOccupePar = p3_bleu
-        var p4_bleu : PPiece = Piece(newNom : EPiece.P4, newCouleur : ECouleur.Bleu, newEstMaitre : false, newPosition : self._grille[4][0])
+        let p4_bleu : PPiece = Piece(newNom : EPiece.P4, newCouleur : ECouleur.Bleu, newEstMaitre : false, newPosition : self._grille[4][0])
         self._grille[4][0].estOccupePar = p4_bleu
         
-        var p1_rouge : PPiece = Piece(newNom : EPiece.P1, newCouleur : ECouleur.Rouge, newEstMaitre : false, newPosition : self._grille[4][4])
+        let p1_rouge : PPiece = Piece(newNom : EPiece.P1, newCouleur : ECouleur.Rouge, newEstMaitre : false, newPosition : self._grille[4][4])
         self._grille[4][4].estOccupePar = p1_rouge
-        var p2_rouge : PPiece = Piece(newNom : EPiece.P2, newCouleur : ECouleur.Rouge, newEstMaitre : false, newPosition : self._grille[3][4])
+        let p2_rouge : PPiece = Piece(newNom : EPiece.P2, newCouleur : ECouleur.Rouge, newEstMaitre : false, newPosition : self._grille[3][4])
         self._grille[3][4].estOccupePar = p2_rouge
-        var m1_rouge : PPiece = Piece(newNom : EPiece.M1, newCouleur : ECouleur.Rouge, newEstMaitre : true, newPosition : self._grille[2][4])
+        let m1_rouge : PPiece = Piece(newNom : EPiece.M1, newCouleur : ECouleur.Rouge, newEstMaitre : true, newPosition : self._grille[2][4])
         self._grille[2][4].estOccupePar = m1_rouge
-        var p3_rouge : PPiece = Piece(newNom : EPiece.P3, newCouleur : ECouleur.Rouge, newEstMaitre : false, newPosition : self._grille[1][4])
+        let p3_rouge : PPiece = Piece(newNom : EPiece.P3, newCouleur : ECouleur.Rouge, newEstMaitre : false, newPosition : self._grille[1][4])
         self._grille[1][4].estOccupePar = p3_rouge
-        var p4_rouge : PPiece = Piece(newNom : EPiece.P4, newCouleur : ECouleur.Rouge, newEstMaitre : false, newPosition : self._grille[0][4])
+        let p4_rouge : PPiece = Piece(newNom : EPiece.P4, newCouleur : ECouleur.Rouge, newEstMaitre : false, newPosition : self._grille[0][4])
         self._grille[0][4].estOccupePar = p4_rouge
 
         self.aEnReserve = Carte(newNom: "default", newCouleur: ECouleur.Bleu)
     }
     private func _create_card() -> [Carte] {
-        var tiger = Carte(newNom: "Tiger", newCouleur: ECouleur.Bleu)
+        let tiger = Carte(newNom: "Tiger", newCouleur: ECouleur.Bleu)
         tiger.ajoutPosition(pos: Position(newX: 2, newY: 1))
         tiger.ajoutPosition(pos: Position(newX: 2, newY: 4))
         
-        var crab = Carte(newNom: "Crab", newCouleur: ECouleur.Bleu)
+        let crab = Carte(newNom: "Crab", newCouleur: ECouleur.Bleu)
         crab.ajoutPosition(pos: Position(newX: 0, newY: 2))
         crab.ajoutPosition(pos: Position(newX: 2, newY: 3))
         crab.ajoutPosition(pos: Position(newX: 4, newY: 2))
         
-        var monkey = Carte(newNom: "Monkey", newCouleur: ECouleur.Bleu)
+        let monkey = Carte(newNom: "Monkey", newCouleur: ECouleur.Bleu)
         monkey.ajoutPosition(pos: Position(newX: 1, newY: 1))
         monkey.ajoutPosition(pos: Position(newX: 3, newY: 1))
         monkey.ajoutPosition(pos: Position(newX: 1, newY: 3))
         monkey.ajoutPosition(pos: Position(newX: 3, newY: 3))
         
-        var crane = Carte(newNom: "Crane", newCouleur: ECouleur.Bleu)
+        let crane = Carte(newNom: "Crane", newCouleur: ECouleur.Bleu)
         crane.ajoutPosition(pos: Position(newX: 1, newY: 1))
         crane.ajoutPosition(pos: Position(newX: 3, newY: 1))
         crane.ajoutPosition(pos: Position(newX: 2, newY: 3))
         
-        var dragon = Carte(newNom: "Dragon", newCouleur: ECouleur.Rouge)
+        let dragon = Carte(newNom: "Dragon", newCouleur: ECouleur.Rouge)
         dragon.ajoutPosition(pos: Position(newX: 1, newY: 1))
         dragon.ajoutPosition(pos: Position(newX: 3, newY: 1))
         dragon.ajoutPosition(pos: Position(newX: 0, newY: 3))
         dragon.ajoutPosition(pos: Position(newX: 4, newY: 3))
         
-        var elephant = Carte(newNom: "Elephant", newCouleur: ECouleur.Rouge)
+        let elephant = Carte(newNom: "Elephant", newCouleur: ECouleur.Rouge)
         elephant.ajoutPosition(pos: Position(newX: 1, newY: 2))
         elephant.ajoutPosition(pos: Position(newX: 3, newY: 2))
         elephant.ajoutPosition(pos: Position(newX: 1, newY: 3))
         elephant.ajoutPosition(pos: Position(newX: 3, newY: 3))
         
-        var mantis = Carte(newNom: "Mantis", newCouleur: ECouleur.Rouge)
+        let mantis = Carte(newNom: "Mantis", newCouleur: ECouleur.Rouge)
         mantis.ajoutPosition(pos: Position(newX: 2, newY: 1))
         mantis.ajoutPosition(pos: Position(newX: 1, newY: 3))
         mantis.ajoutPosition(pos: Position(newX: 3, newY: 3))
         
-        var boar = Carte(newNom: "Boar", newCouleur: ECouleur.Rouge)
+        let boar = Carte(newNom: "Boar", newCouleur: ECouleur.Rouge)
         boar.ajoutPosition(pos: Position(newX: 1, newY: 2))
         boar.ajoutPosition(pos: Position(newX: 3, newY: 2))
         boar.ajoutPosition(pos: Position(newX: 2, newY: 3))
         
-        var frog = Carte(newNom: "Frog", newCouleur: ECouleur.Rouge)
+        let frog = Carte(newNom: "Frog", newCouleur: ECouleur.Rouge)
         frog.ajoutPosition(pos: Position(newX: 3, newY: 1))
         frog.ajoutPosition(pos: Position(newX: 0, newY: 2))
         frog.ajoutPosition(pos: Position(newX: 1, newY: 3))
         
-        var goose = Carte(newNom: "Goose", newCouleur: ECouleur.Bleu)
+        let goose = Carte(newNom: "Goose", newCouleur: ECouleur.Bleu)
         goose.ajoutPosition(pos: Position(newX: 3, newY: 1))
         goose.ajoutPosition(pos: Position(newX: 1, newY: 2))
         goose.ajoutPosition(pos: Position(newX: 3, newY: 2))
         goose.ajoutPosition(pos: Position(newX: 1, newY: 3))
         
-        var horse = Carte(newNom: "Horse", newCouleur: ECouleur.Rouge)
+        let horse = Carte(newNom: "Horse", newCouleur: ECouleur.Rouge)
         horse.ajoutPosition(pos: Position(newX: 2, newY: 1))
         horse.ajoutPosition(pos: Position(newX: 1, newY: 2))
         horse.ajoutPosition(pos: Position(newX: 2, newY: 3))
         
-        var eel = Carte(newNom: "Eel", newCouleur: ECouleur.Bleu)
+        let eel = Carte(newNom: "Eel", newCouleur: ECouleur.Bleu)
         eel.ajoutPosition(pos: Position(newX: 1, newY: 1))
         eel.ajoutPosition(pos: Position(newX: 3, newY: 2))
         eel.ajoutPosition(pos: Position(newX: 1, newY: 3))
         
-        var rabbit = Carte(newNom: "Rabbit", newCouleur: ECouleur.Bleu)
+        let rabbit = Carte(newNom: "Rabbit", newCouleur: ECouleur.Bleu)
         rabbit.ajoutPosition(pos: Position(newX: 1, newY: 1))
         rabbit.ajoutPosition(pos: Position(newX: 3, newY: 3))
         rabbit.ajoutPosition(pos: Position(newX: 4, newY: 2))
         
-        var rooster = Carte(newNom: "Rooster", newCouleur: ECouleur.Rouge)
+        let rooster = Carte(newNom: "Rooster", newCouleur: ECouleur.Rouge)
         rooster.ajoutPosition(pos: Position(newX: 1, newY: 1))
         rooster.ajoutPosition(pos: Position(newX: 1, newY: 2))
         rooster.ajoutPosition(pos: Position(newX: 3, newY: 2))
         rooster.ajoutPosition(pos: Position(newX: 3, newY: 3))
         
-        var ox = Carte(newNom: "Ox", newCouleur: ECouleur.Bleu)
+        let ox = Carte(newNom: "Ox", newCouleur: ECouleur.Bleu)
         ox.ajoutPosition(pos: Position(newX: 2, newY: 1))
         ox.ajoutPosition(pos: Position(newX: 3, newY: 2))
         ox.ajoutPosition(pos: Position(newX: 2, newY: 3))
         
-        var cobra = Carte(newNom: "Cobra", newCouleur: ECouleur.Rouge)
+        let cobra = Carte(newNom: "Cobra", newCouleur: ECouleur.Rouge)
         cobra.ajoutPosition(pos: Position(newX: 3, newY: 1))
         cobra.ajoutPosition(pos: Position(newX: 1, newY: 2))
         cobra.ajoutPosition(pos: Position(newX: 3, newY: 3))
@@ -790,7 +790,7 @@ while partieContinue {
 		var newPositionX : Int = 0
 		repeat {
 			print ("x :")
-			var XSaisie = readLine()
+			let XSaisie = readLine()
 			if let X = XSaisie {
 				newPositionX = Int(X) ?? -1
 			} else {
@@ -807,7 +807,7 @@ while partieContinue {
 		var newPositionY : Int = 0
 		repeat {
 			print ("y :")
-			var YSaisie = readLine()
+			let YSaisie = readLine()
 			if let Y = YSaisie {
 				newPositionY = Int(Y) ?? -1		
 			} else {
@@ -866,9 +866,9 @@ while partieContinue {
 			if choixBis == "non" || choixBis == "non "{
 				print("séléctionnez le nom d'une nouvelle carte")
 				let choixCarte = readLine()
-				var carteCourant : PCarte = joueurCourant.aPourCarte1
+				carteCourante = joueurCourant.aPourCarte1
 				if choixCarte == joueurCourant.aPourCarte2.aPourNomC {
-				carteCourant = joueurCourant.aPourCarte2
+					carteCourante = joueurCourant.aPourCarte2
 				} 
 			}
 
@@ -878,7 +878,7 @@ while partieContinue {
 			//print ("x :")
 			repeat {
 				print ("x :")
-				var XSaisie = readLine()
+				let XSaisie = readLine()
 				xValide = true
 				if let X = XSaisie {
 					newPositionX = Int(X) ?? 0
@@ -892,7 +892,7 @@ while partieContinue {
 			//print ("y :")
 			repeat {
 				print ("y :")
-				var YSaisie = readLine()
+				let YSaisie = readLine()
 				yValide = true
 				if let Y = YSaisie {
 					newPositionY = Int(Y) ?? 0		
@@ -960,7 +960,7 @@ while partieContinue {
 	} else {
 		cpt = 1
 	}
-	var j = joueurCourant
+	let j = joueurCourant
 	joueurCourant = joueurAdverse
 	joueurAdverse = j 
 

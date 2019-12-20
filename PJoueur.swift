@@ -158,7 +158,7 @@ struct Joueur : PJoueur {
     // Pre : le String entré en paramètre doit correspondre au nom d'une pièce que le joueur détient
     // Post : une Pièce correspondant à la chaîne de caractère est retournée
     func recupPiece (pieceSaisie : EPiece) -> PPiece{
-        var i : Int = self.recherchePiece(piece : pieceSaisie)
+        let i : Int = self.recherchePiece(piece : pieceSaisie)
         
         if(i != -1){
             return self._piece[i]
@@ -172,7 +172,7 @@ struct Joueur : PJoueur {
     // Est utilisée lorsqu'une pièce est éliminé de la partie
     // Resultat : enlève au joueur la pièce entrée en paramètre
     mutating func elimine (piece : PPiece){
-        var i : Int = recherchePiece(piece:piece.aPourNom)
+        let i : Int = recherchePiece(piece:piece.aPourNom)
         
         if(i != -1){
             self._piece.remove(at:i)

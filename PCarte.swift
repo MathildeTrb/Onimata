@@ -55,8 +55,8 @@ class Carte : PCarte {
     
     func contient(pos : PPosition, pieceRef : PPiece) -> Bool {   
         for position in aPourPositionsPossibles {
-            var x = 2 - pieceRef.aPourPosition.positionX + pos.positionX
-            var y = 2 - pieceRef.aPourPosition.positionY + pos.positionY
+            let x = 2 - pieceRef.aPourPosition.positionX + pos.positionX
+            let y = 2 - pieceRef.aPourPosition.positionY + pos.positionY
             if x == position.positionX && y == position.positionY {
                 return true
             }

@@ -156,7 +156,7 @@ while partieContinue {
 		var newPositionX : Int = 0
 		repeat {
 			print ("x :")
-			var XSaisie = readLine()
+			let XSaisie = readLine()
 			if let X = XSaisie {
 				newPositionX = Int(X) ?? -1
 			} else {
@@ -173,7 +173,7 @@ while partieContinue {
 		var newPositionY : Int = 0
 		repeat {
 			print ("y :")
-			var YSaisie = readLine()
+			let YSaisie = readLine()
 			if let Y = YSaisie {
 				newPositionY = Int(Y) ?? -1		
 			} else {
@@ -232,9 +232,9 @@ while partieContinue {
 			if choixBis == "non" || choixBis == "non "{
 				print("séléctionnez le nom d'une nouvelle carte")
 				let choixCarte = readLine()
-				var carteCourant : PCarte = joueurCourant.aPourCarte1
+				carteCourante = joueurCourant.aPourCarte1
 				if choixCarte == joueurCourant.aPourCarte2.aPourNomC {
-				carteCourant = joueurCourant.aPourCarte2
+					carteCourante = joueurCourant.aPourCarte2
 				} 
 			}
 
@@ -244,7 +244,7 @@ while partieContinue {
 			//print ("x :")
 			repeat {
 				print ("x :")
-				var XSaisie = readLine()
+				let XSaisie = readLine()
 				xValide = true
 				if let X = XSaisie {
 					newPositionX = Int(X) ?? 0
@@ -258,7 +258,7 @@ while partieContinue {
 			//print ("y :")
 			repeat {
 				print ("y :")
-				var YSaisie = readLine()
+				let YSaisie = readLine()
 				yValide = true
 				if let Y = YSaisie {
 					newPositionY = Int(Y) ?? 0		
@@ -326,7 +326,7 @@ while partieContinue {
 	} else {
 		cpt = 1
 	}
-	var j = joueurCourant
+	let j = joueurCourant
 	joueurCourant = joueurAdverse
 	joueurAdverse = j 
 
